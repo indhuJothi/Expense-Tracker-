@@ -1,0 +1,26 @@
+[{
+    "Employee Name":"Indhu",
+    "Department" : "Devolpment",
+    "Role" : "Trainee",
+    "Email" : "indhu99.p@gmail.com",
+    "Username" : "indhu.palanivel",
+    "Password" : "indhu@1234"
+},
+{
+    "Employee Name":"Charanya",
+    "Department" : "Testing",
+    "Role" : "Trainee",
+    "Email" : "indhu99.p@gmail.com",
+    "Username" : "charnya.Ramanan",
+    "Password" : "charanya@1234"
+
+},
+{
+  "Employee Name":"Dharshini",
+    "Department" : "Infrastructure",
+    "Role" : "Trainee",
+    "Email" : "indhu99.p@gmail.com",
+    "Username" : "Dharshini.gnana",
+    "Password" : "dharshini@1234"
+}
+]

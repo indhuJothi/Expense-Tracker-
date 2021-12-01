@@ -1,0 +1,32 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ffffff;
+  /* text-align: left; */
+  padding: 8px;
+  font-size: 28px;
+}
+
+th {
+  background-color:cornflowerblue;
+}
+
+td {
+  background-color:darkgray;
+}
+
+
+
+
+
+
