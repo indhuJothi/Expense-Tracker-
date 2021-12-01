@@ -1,5 +1,5 @@
 [{
-    "Employee Name":"Indhu",
+    "EmployeeName":"Indhu",
     "Department" : "Devolpment",
     "Role" : "Trainee",
     "Email" : "indhu99.p@gmail.com",
@@ -7,7 +7,7 @@
     "Password" : "indhu@1234"
 },
 {
-    "Employee Name":"Charanya",
+    "EmployeeName":"Charanya",
     "Department" : "Testing",
     "Role" : "Trainee",
     "Email" : "indhu99.p@gmail.com",
@@ -16,7 +16,7 @@
 
 },
 {
-  "Employee Name":"Dharshini",
+  "EmployeeName":"Dharshini",
     "Department" : "Infrastructure",
     "Role" : "Trainee",
     "Email" : "indhu99.p@gmail.com",

@@ -10,28 +10,28 @@ function Table() {
       <table>
         <thead>
           <tr>
-        <th>Employee Name</th>
-        <th>Department</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Send</th>
-        </tr>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Send</th>
+          </tr>
         </thead>
         <tbody>
-          {Details.map((data)=>(
+          {Details.map((data) => (
             <Fragment>
               <tr>
-             <td>{data["Employee Name"]}</td>
-              <td>{data.Department}</td>
-              <td>{data.Role}</td>
-              <td>{data.Email}</td>
-              <td>{data.Username}</td>
-              <td>{data.Password}</td>
-              <td><button>Send</button></td>
-          </tr>
-              </Fragment>
+                <td>{data.EmployeeName}</td>
+                <td>{data.Department}</td>
+                <td>{data.Role}</td>
+                <td>{data.Email}</td>
+                <td>{data.Username}</td>
+                <td>{data.Password}</td>
+                <td><button>Send</button></td>
+              </tr>
+            </Fragment>
           ))}
         </tbody>
       </table>
