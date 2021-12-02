@@ -1,20 +1,19 @@
 .app-container {
   display: flex;
   flex-direction: column;
-
+  margin-top: 10px;
 }
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
 }
 
 th,
 td {
   border: 1px solid #ffffff;
-  /* text-align: left; */
-  padding: 8px;
-  font-size: 28px;
+  padding: 5px;
+  font-size: 26.5px;
 }
 
 th {
