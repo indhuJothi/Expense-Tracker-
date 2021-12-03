@@ -1,7 +1,10 @@
 import React from "react";
+import "../Components/Admin/Emp-Table.css"
 
 const ReadOnlyRow = ({ contact}) => {
   return (
+  
+    <tbody>
     <tr>
       <td>{contact.EmployeeName}</td>
       <td>{contact.Department}</td>
@@ -18,11 +21,15 @@ const ReadOnlyRow = ({ contact}) => {
         >
           Edit
         </button>
+        </td>
+        <td>
         <button type="button" onClick={() => "#"}>
           Delete
         </button>
       </td>
     </tr>
+    </tbody>
+    
   );
 };
 
