@@ -1,9 +1,9 @@
 import React from "react";
-import "../Components/Admin/Emp-Table.css"
+import "../Components/Admin/Emp_Table.css"
 
 const ReadOnlyRow = ({ contact}) => {
   return (
-  
+  <>
     <tbody>
     <tr>
       <td>{contact.EmployeeName}</td>
@@ -28,8 +28,10 @@ const ReadOnlyRow = ({ contact}) => {
         </button>
       </td>
     </tr>
+    
     </tbody>
     
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import EmpTable from './Components/Admin/Emp-Table'
+import EmpTable from './Components/Admin/Emp_Table'
 
 
 class Table extends React.Component{

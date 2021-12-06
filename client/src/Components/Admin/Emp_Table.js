@@ -1,5 +1,5 @@
 import React from "react";
-import './Emp-Table.css';
+import './Emp_Table.css';
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../ReadOnlyRow";
 
@@ -78,9 +78,18 @@ class Table extends React.Component {
       passwordRes = true
     }
     if ((EmailRes || EnameRes || UnameRes || passwordRes || departmentRes || roleRes || departmentRes) === false) {
-      alert(
-     this.state.Ename
-      )
+
+      var EmpDetails = [];
+      EmpDetails[0]=this.state.Ename
+      EmpDetails[1]=this.state.department
+      EmpDetails[2]=this.state.role
+      EmpDetails[3]=this.state.Email
+      EmpDetails[4]=this.state.Uname
+      EmpDetails[5]=this.state.password
+      localStorage.setItem("EmpDetails",JSON.stringify(EmpDetails))
+      window.location.reload()
+      // let apiURL 
+      
 
     }
     else {
@@ -88,6 +97,14 @@ class Table extends React.Component {
     }
 
   }
+
+componentDidMount(){
+  if(localStorage.getItem!=null){
+    
+    console.log(JSON.parse(localStorage.EmpDetails))
+  }
+}
+
   render() {
     return (
       <div className="app-container">
@@ -111,6 +128,32 @@ class Table extends React.Component {
                 contact={data}
               />
             ))}
+     {localStorage.getItem("EmpDetails")!==null ? <tbody>
+    <tr>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[0]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[1]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[2]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[3]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[4]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[5]}</td>
+      <td> <button>Send</button>
+      </td>
+      <td>
+        <button
+          type="button"
+          onClick={(event) => "#"}
+        >
+          Edit
+        </button>
+        </td>
+        <td>
+        <button type="button" onClick={() => "#"}>
+          Delete
+        </button>
+      </td>
+    </tr>
+    
+    </tbody> : console.log("true")}
           </table>
         </form>
 
