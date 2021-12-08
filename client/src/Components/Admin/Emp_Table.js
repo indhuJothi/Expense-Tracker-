@@ -2,12 +2,14 @@ import React from "react";
 import './Emp_Table.css';
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../ReadOnlyRow";
+import EditableRow from "../EditableRow";
 
 
 class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      Eid:"",
       Ename: "",
       Uname: "",
       Email: "",
@@ -80,12 +82,13 @@ class Table extends React.Component {
     if ((EmailRes || EnameRes || UnameRes || passwordRes || departmentRes || roleRes || departmentRes) === false) {
 
       var EmpDetails = [];
-      EmpDetails[0]=this.state.Ename
-      EmpDetails[1]=this.state.department
-      EmpDetails[2]=this.state.role
-      EmpDetails[3]=this.state.Email
-      EmpDetails[4]=this.state.Uname
-      EmpDetails[5]=this.state.password
+      EmpDetails[0]=this.state.Eid
+      EmpDetails[1]=this.state.Ename
+      EmpDetails[2]=this.state.department
+      EmpDetails[3]=this.state.role
+      EmpDetails[4]=this.state.Email
+      EmpDetails[5]=this.state.Uname
+      EmpDetails[6]=this.state.password
       localStorage.setItem("EmpDetails",JSON.stringify(EmpDetails))
       window.location.reload()
       // let apiURL 
@@ -97,13 +100,26 @@ class Table extends React.Component {
     }
 
   }
+  handleEditClick(event,contact) {
+    event.preventDefault();
 
-componentDidMount(){
-  if(localStorage.getItem!=null){
+     alert("Hi")
     
-    console.log(JSON.parse(localStorage.EmpDetails))
+
   }
-}
+
+  handleEditForm(event){
+    event.preventDefault();
+    alert("Hello")
+  
+  }
+
+// componentDidMount(){
+//   if(localStorage.getItem!=null){
+    
+//     console.log(JSON.parse(localStorage.EmpDetails))
+//   }
+// }
 
   render() {
     return (
@@ -112,6 +128,7 @@ componentDidMount(){
           <table>
             <thead>
               <tr>
+                <th>EmployeeId</th>
                 <th>Employee Name</th>
                 <th>Department</th>
                 <th>Role</th>
@@ -126,6 +143,7 @@ componentDidMount(){
             {data.map((data) => (
               <ReadOnlyRow
                 contact={data}
+                handleEditClick={this.handleEditClick}
               />
             ))}
      {localStorage.getItem("EmpDetails")!==null ? <tbody>
@@ -136,12 +154,13 @@ componentDidMount(){
       <td>{JSON.parse(localStorage.getItem("EmpDetails"))[3]}</td>
       <td>{JSON.parse(localStorage.getItem("EmpDetails"))[4]}</td>
       <td>{JSON.parse(localStorage.getItem("EmpDetails"))[5]}</td>
+      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[6]}</td>
       <td> <button>Send</button>
       </td>
       <td>
         <button
           type="button"
-          onClick={(event) => "#"}
+          onClick={this.handleEditForm.bind(this)}
         >
           Edit
         </button>
@@ -159,6 +178,14 @@ componentDidMount(){
 
         <h2 className="title">Add Employee</h2>
         <form onSubmit={this.handleSubmit.bind(this)} className="addEmpForm">
+        <input
+            type="text"
+            name='Eid'
+            // required="required"
+            placeholder="Employee Id"
+            value={this.state.Eid}
+            onChange={(event) => this.setState({ Eid: event.target.value })}
+          />
           <input
             type="text"
             name='Ename'
