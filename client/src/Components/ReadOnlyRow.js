@@ -1,5 +1,6 @@
 import React from "react";
 import "../Components/Admin/Emp_Table.css"
+import {Link} from 'react-router-dom'
 
 const ReadOnlyRow = ({ contact,handleEditClick}) => {
   return (
@@ -18,7 +19,7 @@ const ReadOnlyRow = ({ contact,handleEditClick}) => {
       <td>
         <button
           type="button"
-          onClick={(event) => handleEditClick(event, contact)}
+          onClick={<Link to="/edit"></Link>}
         >
           Edit
         </button>

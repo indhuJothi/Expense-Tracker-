@@ -181,7 +181,7 @@ class Table extends React.Component {
         <input
             type="text"
             name='Eid'
-            // required="required"
+            required="required"
             placeholder="Employee Id"
             value={this.state.Eid}
             onChange={(event) => this.setState({ Eid: event.target.value })}

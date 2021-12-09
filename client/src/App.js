@@ -1,21 +1,23 @@
 import React from "react";
-import EmpTable from './Components/Admin/Emp_Table'
+import EmpTable from './Components/Admin/Emp_Table';
+import { BrowserRouter as Router,Switch,Route,Routes } from "react-router-dom";
 import EditableRow from "./Components/EditableRow";
 
 
 
-class Table extends React.Component{
-  render(){
-  return (
-    <div>
-      <EmpTable/>
- 
-
-    </div>
-  );
-            }
+function App() {
+return(
+  <div>
+    <EmpTable/>
+<EditableRow/>
+    <Router>
+      <Routes>
+        <Route path="/edit" component={EditableRow}>
+        </Route></Routes>
+    </Router>
+  </div>
+)
+  
 }
 
-export default Table;
-
-
+export default App
