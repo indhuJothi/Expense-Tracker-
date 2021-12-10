@@ -2,7 +2,7 @@ import React from "react";
 import './Emp_Table.css';
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../ReadOnlyRow";
-import EditableRow from "../EditableRow";
+import {Link} from 'react-router-dom'
 
 
 class Table extends React.Component {
@@ -114,14 +114,27 @@ class Table extends React.Component {
   
   }
 
-// componentDidMount(){
-//   if(localStorage.getItem!=null){
-    
-//     console.log(JSON.parse(localStorage.EmpDetails))
-//   }
-// }
+componentWillMount(){
+  let users=[]
+  data.map((data)=>{
+    users[data.EmployeeId-1]={
+      EmployeeId:data.EmployeeId,
+      EmployeeName:data.EmployeeName,
+      Department:data.Department,
+      Role:data.Role,
+      Email:data.Email,
+      Username:data.Username,
+      Password:data.Password
+    }
+  }
+  )
+  localStorage.setItem("Users",JSON.stringify(users))
+
+}
 
   render() {
+    let datas=JSON.parse(localStorage.getItem("Users"))
+    console.log(datas)
     return (
       <div className="app-container">
         <form onSubmit="#">
@@ -140,13 +153,14 @@ class Table extends React.Component {
                 <th>Delete</th>
               </tr>
             </thead>
-            {data.map((data) => (
+            {datas.map((data) => (
+            
               <ReadOnlyRow
                 contact={data}
                 handleEditClick={this.handleEditClick}
               />
             ))}
-     {localStorage.getItem("EmpDetails")!==null ? <tbody>
+     {localStorage.getItem("EmpDetails")!==null && <tbody>
     <tr>
       <td>{JSON.parse(localStorage.getItem("EmpDetails"))[0]}</td>
       <td>{JSON.parse(localStorage.getItem("EmpDetails"))[1]}</td>
@@ -158,12 +172,11 @@ class Table extends React.Component {
       <td> <button>Send</button>
       </td>
       <td>
-        <button
-          type="button"
-          onClick={this.handleEditForm.bind(this)}
+        <Link
+          to={{pathname:"/edit"+JSON.parse(localStorage.getItem("EmpDetails"))[0]}}
         >
           Edit
-        </button>
+        </Link>
         </td>
         <td>
         <button type="button" onClick={() => "#"}>
@@ -172,7 +185,7 @@ class Table extends React.Component {
       </td>
     </tr>
     
-    </tbody> : console.log("true")}
+    </tbody> }
           </table>
         </form>
 

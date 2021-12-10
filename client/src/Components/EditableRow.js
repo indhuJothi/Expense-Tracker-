@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import data from '../mock-data.json'
 import './EditableRow.css'
 
@@ -18,6 +19,7 @@ class EditableRow extends React.Component {
 
   }
   render() {
+    let datas=JSON.parse(localStorage.getItem("Users"))
     return (
       <div className="app-container">
 
@@ -35,7 +37,7 @@ class EditableRow extends React.Component {
                 <th>Save</th>
               </tr>
             </thead>
-            {data.map((data) =>
+            {datas.map((data) =>
 
               <tbody >
                 <tr >
@@ -169,8 +171,6 @@ class EditableRow extends React.Component {
                   onchange={(e) => { this.setState({ password: e.target.value }) }} /></td>
               <td>
                 <button
-                  type="button"
-                // onClick={this.handleEditForm.bind(this)}
                 >
                   Save
                 </button>

@@ -2,7 +2,10 @@ import React from "react";
 import "../Components/Admin/Emp_Table.css"
 import {Link} from 'react-router-dom'
 
-const ReadOnlyRow = ({ contact,handleEditClick}) => {
+class ReadOnlyRow extends React.Component {
+  render(){
+  let contact = this.props.contact
+
   return (
   <>
     <tbody>
@@ -17,12 +20,9 @@ const ReadOnlyRow = ({ contact,handleEditClick}) => {
       <td> <button>Send</button>
       </td>
       <td>
-        <button
-          type="button"
-          onClick={<Link to="/edit"></Link>}
-        >
+        <Link to={{pathname:"/edit"+contact.EmployeeId}}>
           Edit
-        </button>
+        </Link>
         </td>
         <td>
         <button type="button" onClick={() => "#"}>
@@ -33,6 +33,7 @@ const ReadOnlyRow = ({ contact,handleEditClick}) => {
     </tbody>
     </>
   );
+  }
 };
 
 export default ReadOnlyRow;
