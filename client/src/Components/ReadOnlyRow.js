@@ -6,9 +6,10 @@ class ReadOnlyRow extends React.Component {
   render(){
   let contact = this.props.contact
 
+
   return (
   <>
-    <tbody>
+    {/* <tbody> */}
     <tr>
       <td>{contact.EmployeeId}</td>
       <td>{contact.EmployeeName}</td>
@@ -20,7 +21,7 @@ class ReadOnlyRow extends React.Component {
       <td> <button>Send</button>
       </td>
       <td>
-        <Link to={{pathname:"/edit"+contact.EmployeeId}}>
+        <Link to={{pathname:"/edit/"+contact.EmployeeId}}>
           Edit
         </Link>
         </td>
@@ -30,7 +31,7 @@ class ReadOnlyRow extends React.Component {
         </button>
       </td>
     </tr>
-    </tbody>
+    {/* </tbody> */}
     </>
   );
   }

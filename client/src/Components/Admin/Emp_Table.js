@@ -2,14 +2,14 @@ import React from "react";
 import './Emp_Table.css';
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../ReadOnlyRow";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Eid:"",
+      Eid: "",
       Ename: "",
       Uname: "",
       Email: "",
@@ -19,7 +19,6 @@ class Table extends React.Component {
     }
 
   }
-  
 
   showDepartment(event) {
     this.setState({
@@ -82,17 +81,40 @@ class Table extends React.Component {
     if ((EmailRes || EnameRes || UnameRes || passwordRes || departmentRes || roleRes || departmentRes) === false) {
 
       var EmpDetails = [];
-      EmpDetails[0]=this.state.Eid
-      EmpDetails[1]=this.state.Ename
-      EmpDetails[2]=this.state.department
-      EmpDetails[3]=this.state.role
-      EmpDetails[4]=this.state.Email
-      EmpDetails[5]=this.state.Uname
-      EmpDetails[6]=this.state.password
-      localStorage.setItem("EmpDetails",JSON.stringify(EmpDetails))
+      var addedEmployee = [];
+      var EmpDetails = {
+        EmployeeId: this.state.Eid,
+        EmployeeName: this.state.Ename,
+        Department: this.state.department,
+        Role: this.state.role,
+        Email: this.state.Email,
+        Username: this.state.Uname,
+        Password: this.state.password
+      }
+      let Details = []
+      if (localStorage.getItem("EmpDetails")) {
+        let prevDetails = JSON.parse(localStorage.getItem("EmpDetails"))
+        let storePrevDetails
+        prevDetails.map((data) => {
+          storePrevDetails = {
+            EmployeeId: data.EmployeeId,
+            EmployeeName: data.EmployeeName,
+            Department: data.Department,
+            Role: data.Role,
+            Email: data.Email,
+            Username: data.Username,
+            Password: data.Password
+          }
+          Details.push(storePrevDetails)
+        })
+
+
+      }
+      Details.push(EmpDetails)
+      localStorage.setItem("EmpDetails", JSON.stringify(Details))
       window.location.reload()
-      // let apiURL 
-      
+
+
 
     }
     else {
@@ -100,41 +122,64 @@ class Table extends React.Component {
     }
 
   }
-  handleEditClick(event,contact) {
+  handleEditClick(event, contact) {
     event.preventDefault();
 
-     alert("Hi")
-    
+    alert("Hi")
+
 
   }
 
-  handleEditForm(event){
+  handleEditForm(event) {
     event.preventDefault();
     alert("Hello")
-  
+
   }
 
-componentWillMount(){
-  let users=[]
-  data.map((data)=>{
-    users[data.EmployeeId-1]={
-      EmployeeId:data.EmployeeId,
-      EmployeeName:data.EmployeeName,
-      Department:data.Department,
-      Role:data.Role,
-      Email:data.Email,
-      Username:data.Username,
-      Password:data.Password
+  componentWillMount() {
+    let users = []
+    data.map((data) => {
+      users[data.EmployeeId - 1] = {
+        EmployeeId: data.EmployeeId,
+        EmployeeName: data.EmployeeName,
+        Department: data.Department,
+        Role: data.Role,
+        Email: data.Email,
+        Username: data.Username,
+        Password: data.Password
+      }
     }
+   
+    )
+    let EditedValues
+    if(localStorage.getItem("NewEditedValues"))
+    {
+    EditedValues= JSON.parse(localStorage.getItem("NewEditedValues"))
+    users.map((data)=>{
+   
+      data.EmployeeId===EditedValues.EmployeeId &&
+      <>
+        {data.EmployeeId=EditedValues.EmployeeId},
+        {data.EmployeeName=EditedValues.EmployeeName},
+        {data.Email=EditedValues.Email},
+        {data.Username=EditedValues.Username},
+        {data.Password=EditedValues.Password},
+        {data.Role=EditedValues.Role},
+        {data.Department=EditedValues.Department}
+       </>
+      
+    })
   }
-  )
-  localStorage.setItem("Users",JSON.stringify(users))
+    localStorage.setItem("Users", JSON.stringify(users))
+  
 
-}
+  }
 
   render() {
-    let datas=JSON.parse(localStorage.getItem("Users"))
-    console.log(datas)
+    let datas = JSON.parse(localStorage.getItem("Users"))
+    let addedDatas = JSON.parse(localStorage.getItem("EmpDetails"))
+    console.log(addedDatas)
+  
     return (
       <div className="app-container">
         <form onSubmit="#">
@@ -153,45 +198,50 @@ componentWillMount(){
                 <th>Delete</th>
               </tr>
             </thead>
-            {datas.map((data) => (
-            
-              <ReadOnlyRow
-                contact={data}
-                handleEditClick={this.handleEditClick}
-              />
-            ))}
-     {localStorage.getItem("EmpDetails")!==null && <tbody>
-    <tr>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[0]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[1]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[2]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[3]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[4]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[5]}</td>
-      <td>{JSON.parse(localStorage.getItem("EmpDetails"))[6]}</td>
-      <td> <button>Send</button>
-      </td>
-      <td>
-        <Link
-          to={{pathname:"/edit"+JSON.parse(localStorage.getItem("EmpDetails"))[0]}}
-        >
-          Edit
-        </Link>
-        </td>
-        <td>
-        <button type="button" onClick={() => "#"}>
-          Delete
-        </button>
-      </td>
-    </tr>
-    
-    </tbody> }
+            <tbody>
+              {datas.map((data) => (
+
+                <ReadOnlyRow
+                  contact={data}
+                  handleEditClick={this.handleEditClick}
+                />
+              ))}
+
+              {localStorage.getItem("EmpDetails") !== null &&
+                addedDatas.map((data) => 
+
+                  <tr>
+                    <td>{data.EmployeeId}</td>
+                    <td>{data.EmployeeName}</td>
+                    <td>{data.Department}</td>
+                    <td>{data.Role}</td>
+                    <td>{data.Email}</td>
+                    <td>{data.Username}</td>
+                    <td>{data.Password}</td>
+                    <td> <button>Send</button>
+                    </td>
+                    <td>
+                      <Link
+                        to={{ pathname: "/edit" + JSON.parse(localStorage.getItem("EmpDetails"))[0] }}
+                      >
+                        Edit
+                      </Link>
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => "#"}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+
+
+                )}</tbody>
           </table>
         </form>
 
         <h2 className="title">Add Employee</h2>
         <form onSubmit={this.handleSubmit.bind(this)} className="addEmpForm">
-        <input
+          <input
             type="text"
             name='Eid'
             required="required"

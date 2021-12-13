@@ -1,123 +1,156 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component, useState, useEffect } from "react";
+import { Link, Navigate, useParams,useNavigate} from "react-router-dom";
+import queryString from 'query-string';
 import data from '../mock-data.json'
 import './EditableRow.css'
 
 
-class EditableRow extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Eid: "",
-      Ename: "",
-      Uname: "",
-      Email: "",
-      password: "",
-      department: "",
-      role: ""
-    }
-
-  }
-  render() {
-    let datas=JSON.parse(localStorage.getItem("Users"))
-    return (
-      <div className="app-container">
-
-        <form onSubmit="#">
-          <table>
-            <thead>
-              <tr>
-                <th>EmployeeId</th>
-                <th>Employee Name</th>
-                <th>Department</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Save</th>
-              </tr>
-            </thead>
-            {datas.map((data) =>
-
-              <tbody >
-                <tr >
-                  <td >
-                    <input
-                      className="Emp-Id"
-                      type="text"
-                      required="required"
-                      defaultValue={data.EmployeeId}
-                      placeholder="EmployeeId"
-                    /></td>
-                  <td>
-                    <input
-                      type="text"
-                      name='Ename'
-                      required="required"
-                      defaultValue={data.EmployeeName}
-                      placeholder="Employee Name"
-
-                    />
-                  </td>
-                  <td>
-                    <select id="department" >
-                      <option defaultValue={data.Department}>{data.Department}</option>
-                      <option value="development">Development</option>
-                      <option value="testing">Testing</option>
-                      <option value="infrastructure">Infrastructure</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select id="role"
-                      
-
-                    >
-                      <option defaultValue={data.Role}>{data.Role}</option>
-                      <option value="employee">employee</option>
-                      <option value="Manager">Manager</option>
-                      <option value="Admin">Admin</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="email"
-                      name='Email'
-                      required="required"
-                      defaultValue={data.Email}
-                      placeholder="sample@domain.com"
-                    // onChange={(event) => this.setState({ Email: event.target.value })}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name='Uname'
-                      required="required"
-                      placeholder="User Name"
-                      defaultValue={data.Username}
-                      onChange={(event) => this.setState({ Uname: event.target.value })}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name='password'
-                      required="required"
-                      placeholder="password"
-                      defaultValue={data.Password}
-                      onChange={(event) => this.setState({ password: event.target.value })}
-                    />
-
-                  </td>
-                  <td><button>Save</button></td>
-                </tr>
-              </tbody>
+function EditableRow(props) {
+  let [Eid, setEid] = useState("")
+  let [Ename, setEname] = useState("")
+  let [Uname, setUname] = useState("")
+  let [Email, setEmail] = useState("")
+  let [password, setpassword] = useState("")
+  let [department, setdepartment] = useState("")
+  let [role, setrole] = useState("")
+  let datas = JSON.parse(localStorage.getItem("Users"))
+  let pathname = window.location.pathname
+  let navigate = useNavigate()
+  let { id } = useParams()
+  let EditedValue
 
 
-            )}
-          </table>
-        </form>
+  datas.map(data => {
+    parseInt(id) === data.EmployeeId &&
+      localStorage.setItem("EditedValue", JSON.stringify(data))
+  })
+
+  localStorage.getItem("NewEditedValues") === null ?
+    EditedValue = JSON.parse(localStorage.getItem("EditedValue")) :
+    EditedValue = JSON.parse(localStorage.getItem("NewEditedValues"))
+
+  // console.log(EditedValue)
+  return (
+    <div className="app-container">
+      <form onSubmit={() => {
+        let NewEditedValues = {
+          EmployeeId: Eid === "" ? EditedValue.EmployeeId : Eid,
+          EmployeeName: Ename === "" ? EditedValue.EmployeeName : Ename,
+          Email: Email === "" ? EditedValue.Email : Email,
+          Username: Uname === "" ? EditedValue.Username : Uname,
+          Password: password === "" ? EditedValue.Password : password,
+          Department: department === "" ? EditedValue.Department : department,
+          Role: role === "" ? EditedValue.Role : role,
+          
+        }
+        localStorage.setItem("NewEditedValues", JSON.stringify(NewEditedValues))
+        navigate('/')
+         
+      }}>
         <table>
+
+          <thead>
+            <tr>
+              <th>EmployeeId</th>
+              <th>Employee Name</th>
+              <th>Department</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Save</th>
+            </tr>
+          </thead>
+
+          {datas.map((data) =>
+            parseInt(id) === data.EmployeeId &&
+            <tbody >
+              <tr >
+                <td >
+                  <input
+                    className="Emp-Id"
+                    name="Uname"
+                    type="text"
+                    required="required"
+                    defaultValue={EditedValue.EmployeeId}
+                    onChange={(event) => { setUname(event.target.value) }}
+                    placeholder="EmployeeId"
+                  /></td>
+                <td>
+                  <input
+                    type="text"
+                    name='Ename'
+                    required="required"
+                    defaultValue={EditedValue.EmployeeName}
+                    onChange={(event) => { setEname(event.target.value) }}
+                    placeholder="Employee Name"
+
+                  />
+                </td>
+                <td>
+                  <select id="department"
+                    onChange={(event) => { setdepartment(event.target.value) }}
+                  >
+                    <option defaultValue={EditedValue.Department}>{EditedValue.Department}</option>
+                    <option value="development">Development</option>
+                    <option value="testing">Testing</option>
+                    <option value="infrastructure">Infrastructure</option>
+                  </select>
+                </td>
+                <td>
+                  <select id="role"
+                    onChange={(event) => { setrole(event.target.value) }}
+
+                  >
+                    <option defaultValue={EditedValue.Role}>{EditedValue.Role}</option>
+                    <option value="employee">employee</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="email"
+                    name='Email'
+                    required="required"
+                    defaultValue={EditedValue.Email}
+                    placeholder="sample@domain.com"
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name='Uname'
+                    required="required"
+                    placeholder="User Name"
+                    defaultValue={EditedValue.Username}
+                    onChange={(event) => setUname(event.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name='password'
+                    required="required"
+                    placeholder="password"
+                    defaultValue={EditedValue.Password}
+                    onChange={(event) => setpassword(event.target.password)}
+                  />
+
+                </td>
+                <td>
+                  <input type="submit" value="Save" />
+                </td>
+              </tr>
+
+            </tbody>
+
+
+          )}
+        </table>
+      </form>
+      {/* <table>
           {localStorage.getItem("EmpDetails") !== null ? <tbody>
             <tr>
               <td>
@@ -178,11 +211,11 @@ class EditableRow extends React.Component {
 
             </tr>
 
-          </tbody> : console.log("true")}</table>
-      </div>
-    )
-  }
-
+          </tbody> : console.log("true")}</table> */}
+    </div>
+  )
 }
+
+
 
 export default EditableRow

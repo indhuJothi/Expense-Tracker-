@@ -11,9 +11,9 @@ return(
     <Router>
       <Routes>
         <Route exact path="/" element={<EmpTable/>}/>
-        <Route path="/edit:id" element={<EditableRow/>}>
+        <Route path="/edit/:id" element={<EditableRow/>}>
         </Route></Routes>
-        </Router>
+    </Router>
   </div>
 )
   
