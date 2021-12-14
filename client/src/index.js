@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Department from '../src/Components/Department/Department'
 
 ReactDOM.render(
   <React.StrictMode>
-   <App/>
+   {/* <App/> */}
+   <Department/>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -2,7 +2,7 @@ import React from "react";
 import './Emp_Table.css';
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../ReadOnlyRow";
-import { Link } from 'react-router-dom'
+
 
 
 class Table extends React.Component {
@@ -80,8 +80,8 @@ class Table extends React.Component {
     }
     if ((EmailRes || EnameRes || UnameRes || passwordRes || departmentRes || roleRes || departmentRes) === false) {
 
-      var EmpDetails = [];
-      var addedEmployee = [];
+      // var EmpDetails = [];
+;
       var EmpDetails = {
         EmployeeId: this.state.Eid,
         EmployeeName: this.state.Ename,
@@ -138,6 +138,8 @@ class Table extends React.Component {
 
   componentWillMount() {
     let users = []
+    if(localStorage.getItem("Users")===null)
+    {
     data.map((data) => {
       users[data.EmployeeId - 1] = {
         EmployeeId: data.EmployeeId,
@@ -149,37 +151,72 @@ class Table extends React.Component {
         Password: data.Password
       }
     }
-   
+  
     )
-    let EditedValues
-    if(localStorage.getItem("NewEditedValues"))
-    {
-    EditedValues= JSON.parse(localStorage.getItem("NewEditedValues"))
-    users.map((data)=>{
-   
-      data.EmployeeId===EditedValues.EmployeeId &&
-      <>
-        {data.EmployeeId=EditedValues.EmployeeId},
-        {data.EmployeeName=EditedValues.EmployeeName},
-        {data.Email=EditedValues.Email},
-        {data.Username=EditedValues.Username},
-        {data.Password=EditedValues.Password},
-        {data.Role=EditedValues.Role},
-        {data.Department=EditedValues.Department}
-       </>
-      
+  }
+  else{
+    let employeeData= JSON.parse(localStorage.getItem("Users"))
+    let add
+    employeeData.map((data)=>{
+      add = {
+        EmployeeId: data.EmployeeId,
+        EmployeeName: data.EmployeeName,
+        Department: data.Department,
+        Role: data.Role,
+        Email: data.Email,
+        Username: data.Username,
+        Password: data.Password
+      }
+      users.push(add)
     })
   }
-    localStorage.setItem("Users", JSON.stringify(users))
-  
 
+    if(localStorage.getItem("EmpDetails")!==null){
+      let addedUsers=JSON.parse(localStorage.getItem("EmpDetails"))
+      console.log(addedUsers)
+      let addusers
+      addedUsers.map((user)=>{
+          addusers={
+            EmployeeId: user.EmployeeId,
+            EmployeeName: user.EmployeeName,
+            Department: user.Department,
+            Role: user.Role,
+            Email: user.Email,
+            Username: user.Username,
+            Password: user.Password
+          }
+          users.push(addusers)
+      },
+      localStorage.removeItem("EmpDetails")
+     
+      )
+    }
+    let EditedValues
+    if (localStorage.getItem("NewEditedValues")) {
+      EditedValues = JSON.parse(localStorage.getItem("NewEditedValues"))
+      users.map((data) => {
+        data.EmployeeId === EditedValues.EmployeeId &&
+          <>
+            {data.EmployeeId = EditedValues.EmployeeId},
+            {data.EmployeeName = EditedValues.EmployeeName},
+            {data.Email = EditedValues.Email},
+            {data.Username = EditedValues.Username},
+            {data.Password = EditedValues.Password},
+            {data.Role = EditedValues.Role},
+            {data.Department = EditedValues.Department}
+          </>
+
+      })
+      localStorage.removeItem("NewEditedValues")
+    }
+    localStorage.setItem("Users", JSON.stringify(users))
+   console.log(JSON.parse(localStorage.getItem("Users")))
   }
 
   render() {
-    let datas = JSON.parse(localStorage.getItem("Users"))
-    let addedDatas = JSON.parse(localStorage.getItem("EmpDetails"))
-    console.log(addedDatas)
-  
+    
+    let datas =JSON.parse(localStorage.getItem("Users"))
+    
     return (
       <div className="app-container">
         <form onSubmit="#">
@@ -207,8 +244,8 @@ class Table extends React.Component {
                 />
               ))}
 
-              {localStorage.getItem("EmpDetails") !== null &&
-                addedDatas.map((data) => 
+              {/* {localStorage.getItem("EmpDetails") !== null &&
+                addedDatas.map((data) =>
 
                   <tr>
                     <td>{data.EmployeeId}</td>
@@ -235,7 +272,8 @@ class Table extends React.Component {
                   </tr>
 
 
-                )}</tbody>
+                )} */}
+                </tbody>
           </table>
         </form>
 

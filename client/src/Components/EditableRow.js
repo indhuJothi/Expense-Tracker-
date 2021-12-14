@@ -1,7 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import { Link, Navigate, useParams,useNavigate} from "react-router-dom";
-import queryString from 'query-string';
-import data from '../mock-data.json'
+import React, {  useState} from "react";
+import { useParams,useNavigate} from "react-router-dom";
 import './EditableRow.css'
 
 
@@ -14,14 +12,15 @@ function EditableRow(props) {
   let [department, setdepartment] = useState("")
   let [role, setrole] = useState("")
   let datas = JSON.parse(localStorage.getItem("Users"))
-  let pathname = window.location.pathname
+
   let navigate = useNavigate()
   let { id } = useParams()
   let EditedValue
-
+  console.log(datas)
 
   datas.map(data => {
-    parseInt(id) === data.EmployeeId &&
+  
+    return parseInt(id) === parseInt(data.EmployeeId) &&
       localStorage.setItem("EditedValue", JSON.stringify(data))
   })
 
@@ -63,7 +62,7 @@ function EditableRow(props) {
           </thead>
 
           {datas.map((data) =>
-            parseInt(id) === data.EmployeeId &&
+            parseInt(id) === parseInt(data.EmployeeId) &&
             <tbody >
               <tr >
                 <td >
@@ -73,7 +72,7 @@ function EditableRow(props) {
                     type="text"
                     required="required"
                     defaultValue={EditedValue.EmployeeId}
-                    onChange={(event) => { setUname(event.target.value) }}
+                    onChange={(event) => { setEid(event.target.value) }}
                     placeholder="EmployeeId"
                   /></td>
                 <td>
@@ -135,7 +134,7 @@ function EditableRow(props) {
                     required="required"
                     placeholder="password"
                     defaultValue={EditedValue.Password}
-                    onChange={(event) => setpassword(event.target.password)}
+                    onChange={(event) => setpassword(event.target.value)}
                   />
 
                 </td>
