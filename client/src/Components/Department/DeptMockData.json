@@ -1,0 +1,27 @@
+[
+    {
+        "Department":"Development",
+        "TotalAmount":"1000",
+        "Id":"1"
+    },
+    {
+        "Department":"Testing",
+        "TotalAmount":"1000",
+        "Id":"2"
+    },
+    {
+        "Department":"HR Department",
+        "TotalAmount":"1000",
+        "Id":"3"
+    },
+    {
+        "Department":"Sales",
+        "TotalAmount":"1000",
+        "Id":"4"
+    },
+    {
+        "Department":"Finance",
+        "TotalAmount":"1000",
+        "Id":"5"
+    }
+]
