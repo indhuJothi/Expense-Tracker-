@@ -1,5 +1,5 @@
-import React, {  useState} from "react";
-import { useParams,useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import './EditableRow.css'
 
 
@@ -19,7 +19,7 @@ function EditableRow(props) {
   console.log(datas)
 
   datas.map(data => {
-  
+
     return parseInt(id) === parseInt(data.EmployeeId) &&
       localStorage.setItem("EditedValue", JSON.stringify(data))
   })
@@ -40,11 +40,11 @@ function EditableRow(props) {
           Password: password === "" ? EditedValue.Password : password,
           Department: department === "" ? EditedValue.Department : department,
           Role: role === "" ? EditedValue.Role : role,
-          
+
         }
         localStorage.setItem("NewEditedValues", JSON.stringify(NewEditedValues))
         navigate('/')
-         
+
       }}>
         <table>
 

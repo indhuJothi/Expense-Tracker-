@@ -81,7 +81,7 @@ class Table extends React.Component {
     if ((EmailRes || EnameRes || UnameRes || passwordRes || departmentRes || roleRes || departmentRes) === false) {
 
       // var EmpDetails = [];
-;
+      ;
       var EmpDetails = {
         EmployeeId: this.state.Eid,
         EmployeeName: this.state.Ename,
@@ -138,57 +138,56 @@ class Table extends React.Component {
 
   componentWillMount() {
     let users = []
-    if(localStorage.getItem("Users")===null)
-    {
-    data.map((data) => {
-      users[data.EmployeeId - 1] = {
-        EmployeeId: data.EmployeeId,
-        EmployeeName: data.EmployeeName,
-        Department: data.Department,
-        Role: data.Role,
-        Email: data.Email,
-        Username: data.Username,
-        Password: data.Password
+    if (localStorage.getItem("Users") === null) {
+      data.map((data) => {
+        users[data.EmployeeId - 1] = {
+          EmployeeId: data.EmployeeId,
+          EmployeeName: data.EmployeeName,
+          Department: data.Department,
+          Role: data.Role,
+          Email: data.Email,
+          Username: data.Username,
+          Password: data.Password
+        }
       }
-    }
-  
-    )
-  }
-  else{
-    let employeeData= JSON.parse(localStorage.getItem("Users"))
-    let add
-    employeeData.map((data)=>{
-      add = {
-        EmployeeId: data.EmployeeId,
-        EmployeeName: data.EmployeeName,
-        Department: data.Department,
-        Role: data.Role,
-        Email: data.Email,
-        Username: data.Username,
-        Password: data.Password
-      }
-      users.push(add)
-    })
-  }
 
-    if(localStorage.getItem("EmpDetails")!==null){
-      let addedUsers=JSON.parse(localStorage.getItem("EmpDetails"))
+      )
+    }
+    else {
+      let employeeData = JSON.parse(localStorage.getItem("Users"))
+      let add
+      employeeData.map((data) => {
+        add = {
+          EmployeeId: data.EmployeeId,
+          EmployeeName: data.EmployeeName,
+          Department: data.Department,
+          Role: data.Role,
+          Email: data.Email,
+          Username: data.Username,
+          Password: data.Password
+        }
+        users.push(add)
+      })
+    }
+
+    if (localStorage.getItem("EmpDetails") !== null) {
+      let addedUsers = JSON.parse(localStorage.getItem("EmpDetails"))
       console.log(addedUsers)
       let addusers
-      addedUsers.map((user)=>{
-          addusers={
-            EmployeeId: user.EmployeeId,
-            EmployeeName: user.EmployeeName,
-            Department: user.Department,
-            Role: user.Role,
-            Email: user.Email,
-            Username: user.Username,
-            Password: user.Password
-          }
-          users.push(addusers)
+      addedUsers.map((user) => {
+        addusers = {
+          EmployeeId: user.EmployeeId,
+          EmployeeName: user.EmployeeName,
+          Department: user.Department,
+          Role: user.Role,
+          Email: user.Email,
+          Username: user.Username,
+          Password: user.Password
+        }
+        users.push(addusers)
       },
-      localStorage.removeItem("EmpDetails")
-     
+        localStorage.removeItem("EmpDetails")
+
       )
     }
     let EditedValues
@@ -210,13 +209,13 @@ class Table extends React.Component {
       localStorage.removeItem("NewEditedValues")
     }
     localStorage.setItem("Users", JSON.stringify(users))
-   console.log(JSON.parse(localStorage.getItem("Users")))
+    console.log(JSON.parse(localStorage.getItem("Users")))
   }
 
   render() {
-    
-    let datas =JSON.parse(localStorage.getItem("Users"))
-    
+
+    let datas = JSON.parse(localStorage.getItem("Users"))
+
     return (
       <div className="app-container">
         <form onSubmit="#">
@@ -273,7 +272,7 @@ class Table extends React.Component {
 
 
                 )} */}
-                </tbody>
+            </tbody>
           </table>
         </form>
 
@@ -286,6 +285,7 @@ class Table extends React.Component {
             placeholder="Employee Id"
             value={this.state.Eid}
             onChange={(event) => this.setState({ Eid: event.target.value })}
+            autoComplete="off"
           />
           <input
             type="text"
@@ -294,6 +294,7 @@ class Table extends React.Component {
             placeholder="Employee Name"
             value={this.state.Ename}
             onChange={(event) => this.setState({ Ename: event.target.value })}
+            autoComplete="off"
           />
           <select id="department" value={this.state.department} onChange={this.showDepartment.bind(this)}>
             <option value="">{""}</option>
@@ -320,6 +321,7 @@ class Table extends React.Component {
             name='Uname'
             // required="required"
             placeholder="User Name"
+            autoComplete="off"
             value={this.state.Uname}
             onChange={(event) => this.setState({ Uname: event.target.value })}
           />
@@ -327,6 +329,7 @@ class Table extends React.Component {
             type="password"
             name='password'
             // required="required"
+            autoComplete="off"
             placeholder="password"
             value={this.state.password}
             onChange={(event) => this.setState({ password: event.target.value })}

@@ -1,0 +1,32 @@
+[
+    {
+        "Id": "1",
+        "Category": "Travel",
+        "MinimumLimit": "2500"
+    },
+    {
+        "Id": "2",
+        "Category": "Advertisment",
+        "MinimumLimit": "3000"
+    },
+    {
+        "Id": "3",
+        "Category": "Food & Lodging",
+        "MinimumLimit": "3500"
+    },
+    {
+        "Id": "4",
+        "Category": "Medical Check Up",
+        "MinimumLimit": "5000"
+    },
+    {
+        "Id": "5",
+        "Category": "Postage & Courier",
+        "MinimumLimit": "1500"
+    },
+    {
+        "Id": "6",
+        "Category": "USB-Headset",
+        "MinimumLimit": "1000"
+    }
+]
