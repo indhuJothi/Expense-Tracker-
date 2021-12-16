@@ -1,0 +1,19 @@
+
+.App {
+    text-align: center;
+  }
+
+.App-header {
+
+    min-height: 120vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .DeptTable{
+    margin-top: 70px;
+    width: 50%;
+  }

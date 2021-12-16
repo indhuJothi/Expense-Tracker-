@@ -1,44 +1,22 @@
-import React, { useState, Fragment } from "react";
-import './App.css';
-import data from "./mock-data.json";
+import React from "react";
+import EmpTable from './Components/Admin/Emp_Table';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import EditableRow from "./Components/EditableRow";
 
 
-function Table() {
-  const [Details, setDetails] = useState(data);
+
+function App() {
   return (
-    <div className="app-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Employee Name</th>
-            <th>Department</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Send</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Details.map((data) => (
-            <Fragment>
-              <tr>
-                <td>{data.EmployeeName}</td>
-                <td>{data.Department}</td>
-                <td>{data.Role}</td>
-                <td>{data.Email}</td>
-                <td>{data.Username}</td>
-                <td>{data.Password}</td>
-                <td><button>Send</button></td>
-              </tr>
-            </Fragment>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<EmpTable />} />
+          <Route path="/edit/:id" element={<EditableRow />}>
+          </Route></Routes>
+      </Router>
     </div>
-  );
+  )
+
 }
 
-export default Table;
-
-
+export default App

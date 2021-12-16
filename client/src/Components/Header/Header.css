@@ -1,0 +1,20 @@
+.container{
+    display: inline;
+    width: auto;
+   
+}
+.title{
+    margin-left: 10px;
+    display: inline;
+    font-size: large;
+}
+
+.profile{
+    margin-left: 650px;
+    display: inline;
+
+}
+
+.logo{
+    width: 40px;;
+}

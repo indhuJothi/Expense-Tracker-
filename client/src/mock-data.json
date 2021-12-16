@@ -1,25 +1,29 @@
 [{
+    "EmployeeId":1,
     "EmployeeName":"Indhu",
     "Department" : "Devolpment",
-    "Role" : "Trainee",
+    "Role" : "Employee",
     "Email" : "indhu99.p@gmail.com",
     "Username" : "indhu.palanivel",
     "Password" : "indhu@1234"
 },
-{
+{ 
+
+    "EmployeeId":2,
     "EmployeeName":"Charanya",
     "Department" : "Testing",
-    "Role" : "Trainee",
-    "Email" : "indhu99.p@gmail.com",
+    "Role" : "Manager",
+    "Email" : "charanya@gmail.com",
     "Username" : "charnya.Ramanan",
     "Password" : "charanya@1234"
 
 },
 {
-  "EmployeeName":"Dharshini",
+    "EmployeeId":3,
+    "EmployeeName":"Dharshini",
     "Department" : "Infrastructure",
-    "Role" : "Trainee",
-    "Email" : "indhu99.p@gmail.com",
+    "Role" : "Admin",
+    "Email" : "dharshini@gmail.com",
     "Username" : "Dharshini.gnana",
     "Password" : "dharshini@1234"
 }
