@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import EmployeeTable from '../src/components/user/usertable'
+import Routing from  '../src/components/routing/routing'
 
 
 ReactDOM.render(
   <React.StrictMode>
  
-    <EmployeeTable/>
+    <Routing/>
   </React.StrictMode>,
   document.getElementById('root')
 );
