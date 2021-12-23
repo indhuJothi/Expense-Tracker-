@@ -3,11 +3,43 @@ import data from '../mockdata.json'
 import FullFeaturedCrudGrid from '../table'
 export default class EmployeeTable extends React.Component{
     render(){
-        console.log(data)
+        const rowsproperty =[ { field: 'id', headerName: 'id', width: 180, editable: true },
+        { field: 'EmployeeName', headerName: 'EmployeeName', editable: true },
+        {
+          field: 'Department',
+          headerName: 'Department',
+          width: 180,
+    
+          editable: true,
+        },
+        {
+          field: 'Role',
+          headerName: 'Role',
+          width: 220,
+          editable: true,
+        },
+    
+        {
+          field: 'Email',
+          headerName: 'Email',
+          width: 220,
+        },
+        {
+          field: 'Username',
+          headerName: 'Username',
+          width: 220,
+          editable: true,
+        },
+        {
+          field: 'Password',
+          headerName: 'Password',
+          width: 220,
+          editable: true,
+        }
+      ]
         return(
           <div>
-          <FullFeaturedCrudGrid/>
-            
+          <FullFeaturedCrudGrid rows={rowsproperty}/>
           </div>
         )
     }

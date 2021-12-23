@@ -22,21 +22,12 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import data from './mockdata.json'
+import data from './category-data.json'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
 }
 
-type rowproperty={
-  
-   rows:{ 
-    field: string,
-    headerName:string,
-    width:number,
-    editable:boolean
-   }[]
-}
 
 function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
@@ -62,11 +53,9 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function FullFeaturedCrudGrid(props:rowproperty) {
+export default function CategoryTable() {
   const apiRef = useGridApiRef();
-  props.rows.map((data)=>{
-     console.log(data)
-   })
+
   const handleRowEditStart = (
     params: GridRowParams,
     event: MuiEvent<React.SyntheticEvent>,
@@ -119,39 +108,20 @@ export default function FullFeaturedCrudGrid(props:rowproperty) {
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'id', width: 180, editable: true },
-    { field: 'EmployeeName', headerName: 'EmployeeName', editable: true },
-    {
-      field: 'Department',
-      headerName: 'Department',
-      width: 180,
-
-      editable: true,
-    },
-    {
-      field: 'Role',
-      headerName: 'Role',
-      width: 220,
-      editable: true,
-    },
 
     {
-      field: 'Email',
-      headerName: 'Email',
+      field: 'Category',
+      headerName: 'Category',
       width: 220,
       editable: true,
     },
     {
-      field: 'Username',
-      headerName: 'Username',
-      width: 220,
-      editable: true,
-    },
-    {
-      field: 'Password',
-      headerName: 'Password',
-      width: 220,
-      editable: true,
-    },
+        field:'MinimumLimit',
+        headerName: 'MinimumLimit',
+        width: 180,
+  
+        editable: true,
+      },
     {
       field: 'actions',
       type: 'actions',
