@@ -23,6 +23,7 @@ import {
   randomId,
 } from '@mui/x-data-grid-generator';
 import data from './department-data.json'
+import Menu from '../menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
@@ -169,7 +170,9 @@ export default function DepartmentTable() {
   ];
 
   return (
-    <Box
+      <>
+      <Menu/>
+    <Box style={{marginLeft:160,marginTop:90}}
       sx={{
         height: 500,
         width: '100%',
@@ -197,5 +200,6 @@ export default function DepartmentTable() {
         }}
       />
     </Box>
+    </>
   );
 }

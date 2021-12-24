@@ -22,11 +22,13 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
+import Menu from '../menu/menu';
 import data from './category-data.json'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
 }
+
 
 
 function EditToolbar(props: EditToolbarProps) {
@@ -54,6 +56,7 @@ function EditToolbar(props: EditToolbarProps) {
 }
 
 export default function CategoryTable() {
+  
   const apiRef = useGridApiRef();
 
   const handleRowEditStart = (
@@ -169,9 +172,12 @@ export default function CategoryTable() {
   ];
 
   return (
-    <Box
+  <>
+    <Menu/>
+    <Box style={{marginLeft:160,marginTop:90}}
       sx={{
         height: 500,
+        
         width: '100%',
         '& .actions': {
           color: 'text.secondary',
@@ -181,6 +187,7 @@ export default function CategoryTable() {
         },
       }}
     >
+        
       <DataGridPro
         rows={rows}
         columns={columns}
@@ -197,5 +204,6 @@ export default function CategoryTable() {
         }}
       />
     </Box>
+    </>
   );
 }

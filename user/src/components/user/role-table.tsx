@@ -22,22 +22,13 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import data from './mockdata.json'
-import Menu from '../../src/components/menu/menu'
+import data from './role-data.json'
+import Menu from '../menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
 }
-// console.log(columns)
-type rowprop={
-  
-   names:{ 
-    field: string,
-    headerName:string,
-    width:number,
-    editable:boolean
-   }[]
-}
+
 
 function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
@@ -63,11 +54,9 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function FullFeaturedCrudGrid(props:rowprop) {
+export default function Roletable() {
   const apiRef = useGridApiRef();
-  props.names.map((data)=>{
-     console.log(data)
-   })
+
   const handleRowEditStart = (
     params: GridRowParams,
     event: MuiEvent<React.SyntheticEvent>,
@@ -120,14 +109,7 @@ export default function FullFeaturedCrudGrid(props:rowprop) {
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'id', width: 180, editable: true },
-    { field: 'EmployeeName', headerName: 'EmployeeName', editable: true },
-    {
-      field: 'Department',
-      headerName: 'Department',
-      width: 180,
 
-      editable: true,
-    },
     {
       field: 'Role',
       headerName: 'Role',
@@ -135,24 +117,6 @@ export default function FullFeaturedCrudGrid(props:rowprop) {
       editable: true,
     },
 
-    {
-      field: 'Email',
-      headerName: 'Email',
-      width: 220,
-      editable: true,
-    },
-    {
-      field: 'Username',
-      headerName: 'Username',
-      width: 220,
-      editable: true,
-    },
-    {
-      field: 'Password',
-      headerName: 'Password',
-      width: 220,
-      editable: true,
-    },
     {
       field: 'actions',
       type: 'actions',
@@ -200,8 +164,9 @@ export default function FullFeaturedCrudGrid(props:rowprop) {
   ];
 
   return (
-    <>
-    <Menu/>
+      <>
+      <Menu/>
+    
     <Box style={{marginLeft:160,marginTop:90}}
       sx={{
         height: 500,
