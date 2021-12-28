@@ -1,17 +1,19 @@
 import React from 'react'
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import data from '../../mockdata.json'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack'
+import CloseIcon from '@material-ui/icons/Close'
 
 
-// interface IMyComponentProps {
-//    username : string,
-//    password:string
-// }
+
 
 type IMyComponentState= {
     username: string,
     password:string,
-    errorr:string
+    errorr:string,
+    showerror:boolean
 }
 class Loginform extends React.Component<{},IMyComponentState>{
   constructor(props:any){
@@ -19,23 +21,30 @@ class Loginform extends React.Component<{},IMyComponentState>{
     this.state={
         username:"",
         password:"",
-        errorr:""
+        errorr:"",
+        showerror:false
     }
 }
 
     submit(e:any)
     {
        e.preventDefault()
-       let username
        let name = data.filter((data) => {
         return ((data.Username === this.state.username) && (data.Password === this.state.password))
   
       })
-    
+      console.log(name.length)
+     if(name.length>0){
     name.map((data)=>{return  localStorage.setItem("username",data.Username)})
     window.location.replace('/department')
     
-    
+     }
+     else{
+
+      this.setState({
+        showerror:true
+      })
+     }
        
 }
 
@@ -46,6 +55,13 @@ class Loginform extends React.Component<{},IMyComponentState>{
     const btnstyle={margin:'8px 0'}
     return(
         <Grid style={{marginTop:120}}>
+                 {   this.state.showerror&&<Stack sx={{ width: '60%',marginTop:'30px' }} spacing={2}>
+      <Alert severity="error"  onClick={()=>{this.setState({showerror:false})}}>
+        <CloseIcon style={{marginLeft:"140%"}}></CloseIcon>
+        <AlertTitle>Error</AlertTitle>
+          Please enter correct username and password  <strong>check it out!</strong>
+      </Alert>
+      </Stack>}
             <Paper elevation={10} style={paperStyle}>
                     <h2>Sign In</h2>
               <form onSubmit={(e)=>this.submit(e)}> 
@@ -64,6 +80,7 @@ class Loginform extends React.Component<{},IMyComponentState>{
                 <Button type='submit' variant="outlined" size="medium" style={{marginTop:30,marginLeft:80}} value='submit'>Submit</Button>
               </form>
             </Paper>
+  
         </Grid>
     )
 }}

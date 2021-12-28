@@ -1,4 +1,3 @@
-import React from "react";
 import logo from './logo.png'
 import { AppBar, Toolbar, Typography, makeStyles, Button, MenuItem } from "@material-ui/core"
 import { Link } from "react-router-dom";

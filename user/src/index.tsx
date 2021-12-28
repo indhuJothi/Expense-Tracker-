@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Routing from  '../src/components/routing/routing'
+import Routing from  './components/common/routing/routing'
 import Data from '../src/components/table/datasentfile'
+import Table from '../src/components/table/roledatafile'
 import FormDialog from './components/table/editdetails';
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -12,7 +13,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
-    <Data/>
+    {/* <Data/> */}
+    <Table/>
     {/* <FormDialog/> */}
     {/* <Router>
     <Header/>

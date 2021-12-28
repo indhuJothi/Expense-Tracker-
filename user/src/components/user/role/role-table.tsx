@@ -22,13 +22,12 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import Menu from '../menu/menu';
-import data from './category-data.json'
+import data from './role-data.json'
+import Menu from '../../common/menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
 }
-
 
 
 function EditToolbar(props: EditToolbarProps) {
@@ -55,8 +54,7 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function CategoryTable() {
-  
+export default function Roletable() {
   const apiRef = useGridApiRef();
 
   const handleRowEditStart = (
@@ -113,18 +111,12 @@ export default function CategoryTable() {
     { field: 'id', headerName: 'id', width: 180, editable: true },
 
     {
-      field: 'Category',
-      headerName: 'Category',
+      field: 'Role',
+      headerName: 'Role',
       width: 220,
       editable: true,
     },
-    {
-        field:'MinimumLimit',
-        headerName: 'MinimumLimit',
-        width: 180,
-  
-        editable: true,
-      },
+
     {
       field: 'actions',
       type: 'actions',
@@ -172,12 +164,12 @@ export default function CategoryTable() {
   ];
 
   return (
-  <>
-    <Menu/>
+      <>
+      <Menu/>
+    
     <Box style={{marginLeft:160,marginTop:90}}
       sx={{
         height: 500,
-        
         width: '100%',
         '& .actions': {
           color: 'text.secondary',
@@ -187,7 +179,6 @@ export default function CategoryTable() {
         },
       }}
     >
-        
       <DataGridPro
         rows={rows}
         columns={columns}

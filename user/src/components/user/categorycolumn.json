@@ -1,0 +1,16 @@
+[
+    { "field": "id", "headerName": "id", "width": 180, "editable": true
+    },
+    {
+  "field": "Category",
+  "headerName": "Category",
+  "width": 220,
+  "editable": true
+    },
+    {
+    "field":"MinimumLimit",
+    "headerName": "MinimumLimit",
+    "width": 180,
+    "editable": true
+    }
+]

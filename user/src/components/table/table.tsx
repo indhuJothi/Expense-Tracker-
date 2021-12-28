@@ -30,6 +30,10 @@ type columnprops={
         id:string,
         Category:string,
         MinimumLimit:string
+    }[] | 
+    {
+      id:string,
+      Role:string
     }[]
 }
 type stateprop={
@@ -114,6 +118,13 @@ class BasicTable extends React.Component<rowprops & columnprops,stateprop> {
          
      )
  }        
+  closepopup=(value:boolean)=>{
+   
+    this.setState({
+      showform:false
+  })
+
+  }
 
   render() {
     let rows = this.props.rows
@@ -125,7 +136,7 @@ class BasicTable extends React.Component<rowprops & columnprops,stateprop> {
                {this.createtable(rows,columns)}
 
             </Table>
-            {this.state.showform &&<FormDialog/>}
+            {this.state.showform &&<FormDialog close={this.closepopup} />}
             </TableContainer>
             </>
 
