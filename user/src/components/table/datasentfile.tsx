@@ -4,7 +4,8 @@ import BasicTable from './table'
 
 class Data extends React.Component{
     componentDidMount(){
-        localStorage.setItem("datas",JSON.stringify(data))
+        localStorage.setItem("categorydetails",JSON.stringify(data))
+        localStorage.removeItem("Columns")
     }
     render(){
         const rows=[

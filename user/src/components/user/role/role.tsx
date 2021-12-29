@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,49 +7,40 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
+  GridRowsProp,
   useGridApiRef,
   DataGridPro,
+  GridApiRef,
+  GridColumns,
+  GridRowParams,
+  MuiEvent,
   GridToolbarContainer,
   GridActionsCellItem,
+  GridEventListener,
+  GridEvents,
 } from '@mui/x-data-grid-pro';
 import {
-  randomCreatedDate,
-  randomTraderName,
-  randomUpdatedDate,
   randomId,
 } from '@mui/x-data-grid-generator';
-import { createTheme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
-import * as  data from './mock-data.json';
-const defaultTheme = createTheme();
+import data from './role-data.json'
+import Menu from '../../common/menu/menu'
+const rows: GridRowsProp = data
+interface EditToolbarProps {
+  apiRef: GridApiRef;
+}
 
-const useStyles = makeStyles(
-  (theme) => ({
-    actions: {
-      color: theme.palette.text.secondary,
-    },
-    textPrimary: {
-      color: theme.palette.text.primary,
-    },
-  }),
-  { defaultTheme },
-);
 
-const rows = data
-
-function EditToolbar(props) {
+function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
 
   const handleClick = () => {
-    const id = randomId();
+    const id = apiRef.current.getRowsCount() +1
     apiRef.current.updateRows([{ id, isNew: true }]);
     apiRef.current.setRowMode(id, 'edit');
-    // Wait for the grid to render with the new row
     setTimeout(() => {
       apiRef.current.scrollToIndexes({
         rowIndex: apiRef.current.getRowsCount() - 1,
       });
-
       apiRef.current.setCellFocus(id, 'name');
     });
   };
@@ -63,34 +54,36 @@ function EditToolbar(props) {
   );
 }
 
-EditToolbar.propTypes = {
-  apiRef: PropTypes.shape({
-    current: PropTypes.object.isRequired,
-  }).isRequired,
-};
-
-export default function FullFeaturedCrudGrid() {
-  const classes = useStyles();
+export default function Roletable() {
   const apiRef = useGridApiRef();
 
-  const handleRowEditStart = (params, event) => {
+  const handleRowEditStart = (
+    params: GridRowParams,
+    event: MuiEvent<React.SyntheticEvent>,
+  ) => {
     event.defaultMuiPrevented = true;
   };
 
-  const handleRowEditStop = (params, event) => {
+  const handleRowEditStop: GridEventListener<GridEvents.rowEditStop> = (
+    params,
+    event,
+  ) => {
     event.defaultMuiPrevented = true;
   };
 
-  const handleCellFocusOut = (params, event) => {
+  const handleCellFocusOut: GridEventListener<GridEvents.cellFocusOut> = (
+    params,
+    event,
+  ) => {
     event.defaultMuiPrevented = true;
   };
 
-  const handleEditClick = (id) => (event) => {
+  const handleEditClick = (id: any) => (event: any) => {
     event.stopPropagation();
     apiRef.current.setRowMode(id, 'edit');
   };
 
-  const handleSaveClick = (id) => (event) => {
+  const handleSaveClick = (id: any) => (event: any) => {
     event.stopPropagation();
     apiRef.current.commitRowChange(id);
     apiRef.current.setRowMode(id, 'view');
@@ -99,42 +92,37 @@ export default function FullFeaturedCrudGrid() {
     apiRef.current.updateRows([{ ...row, isNew: false }]);
   };
 
-  const handleDeleteClick = (id) => (event) => {
+  const handleDeleteClick = (id: any) => (event: any) => {
     event.stopPropagation();
     apiRef.current.updateRows([{ id, _action: 'delete' }]);
   };
 
-  const handleCancelClick = (id) => (event) => {
+  const handleCancelClick = (id: any) => (event: any) => {
     event.stopPropagation();
     apiRef.current.setRowMode(id, 'view');
 
     const row = apiRef.current.getRow(id);
-    if (row.isNew) {
+    if (row!.isNew) {
       apiRef.current.updateRows([{ id, _action: 'delete' }]);
     }
   };
 
-  const columns = [
-    { field: 'EmployeeId', headerName: 'EmployeeId', width: 180, editable: true },
-    { field: 'EmployeeName', headerName: 'EmployeeName', editable: true },
-    {
-      field: 'Department',
-      headerName: 'Department',
-      width: 180,
-      editable: true,
-    },
+  const columns: GridColumns = [
+    { field: 'id', headerName: 'id', width: 180, editable: true },
+
     {
       field: 'Role',
       headerName: 'Role',
       width: 220,
       editable: true,
     },
+
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
       width: 100,
-      cellClassName: classes.actions,
+      cellClassName: 'actions',
       getActions: ({ id }) => {
         const isInEditMode = apiRef.current.getRowMode(id) === 'edit';
 
@@ -149,7 +137,7 @@ export default function FullFeaturedCrudGrid() {
             <GridActionsCellItem
               icon={<CancelIcon />}
               label="Cancel"
-              className={classes.textPrimary}
+              className="textPrimary"
               onClick={handleCancelClick(id)}
               color="inherit"
             />,
@@ -160,7 +148,7 @@ export default function FullFeaturedCrudGrid() {
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Edit"
-            className={classes.textPrimary}
+            className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
           />,
@@ -176,7 +164,21 @@ export default function FullFeaturedCrudGrid() {
   ];
 
   return (
-    <div style={{ height: 500, width: '100%' }}>
+      <>
+      <Menu/>
+    
+    <Box style={{marginLeft:160,marginTop:90}}
+      sx={{
+        height: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
       <DataGridPro
         rows={rows}
         columns={columns}
@@ -192,52 +194,7 @@ export default function FullFeaturedCrudGrid() {
           toolbar: { apiRef },
         }}
       />
-    </div>
+    </Box>
+    </>
   );
 }
-
-
-
-
-// import React from 'react'
-// import {Table,TableBody,TableCell,TableHead,TableRow,TableContainer} from '@mui/material'
-// import Paper from '@mui/material/Paper'
-
-// class TableComponent extends React.Component{
-//     render(){
-//         const rows=[
-//             {
-//                 name:"Indhu",
-//                 id:1
-//             },
-//             {
-//                 name:"Sundari",
-//                 id:2
-//             }
-//         ]
-//         return(
-
-//           <TableContainer component={Paper}>
-//               <Table>
-//                   <TableHead>
-//                       <TableRow>
-//                           <TableCell>Name</TableCell>
-//                           <TableCell>Id</TableCell>
-//                       </TableRow>
-//                   </TableHead>
-//                   <TableBody>
-//                       {rows.map((data)=>
-//                           <TableRow>
-//                               <TableCell>{data.name}</TableCell>
-//                               <TableCell>{data.id}</TableCell>
-//                           </TableRow>
-//                       )}
-//                   </TableBody>
-//               </Table>
-
-//           </TableContainer>
-//         )
-//     }
-// }
-
-// export default TableComponent

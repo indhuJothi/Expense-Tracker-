@@ -2,7 +2,7 @@ import React from 'react';
 
 import './App.css';
 
-import FullFeaturedCrudGrid from '../src/components/table'
+import FullFeaturedCrudGrid from './components/user/employeee/table'
 
 function App() {
   return (

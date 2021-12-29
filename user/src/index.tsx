@@ -8,13 +8,15 @@ import Data from '../src/components/table/datasentfile'
 import Table from '../src/components/table/roledatafile'
 import FormDialog from './components/table/editdetails';
 import { BrowserRouter as Router } from 'react-router-dom'
+import EmployeeTable from  '../src/components/user/employeee/usertable'
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
-    {/* <Data/> */}
-    <Table/>
+    <Data/>
+    {/* <EmployeeTable/> */}
+    {/* <Table/> */}
     {/* <FormDialog/> */}
     {/* <Router>
     <Header/>

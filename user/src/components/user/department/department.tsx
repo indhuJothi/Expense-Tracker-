@@ -22,20 +22,19 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import Menu from '../../common/menu/menu';
-import data from './category-data.json'
+import data from './department-data.json'
+import Menu from '../../common/menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
 }
 
 
-
 function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
 
   const handleClick = () => {
-    const id = randomId();
+    const id = apiRef.current.getRowsCount() +1
     apiRef.current.updateRows([{ id, isNew: true }]);
     apiRef.current.setRowMode(id, 'edit');
     setTimeout(() => {
@@ -55,8 +54,7 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function CategoryTable() {
-  
+export default function DepartmentTable() {
   const apiRef = useGridApiRef();
 
   const handleRowEditStart = (
@@ -113,14 +111,14 @@ export default function CategoryTable() {
     { field: 'id', headerName: 'id', width: 180, editable: true },
 
     {
-      field: 'Category',
-      headerName: 'Category',
+      field: 'Department',
+      headerName: 'Department',
       width: 220,
       editable: true,
     },
     {
-        field:'MinimumLimit',
-        headerName: 'MinimumLimit',
+        field:'TotalAmount',
+        headerName: 'TotalAmount',
         width: 180,
   
         editable: true,
@@ -172,12 +170,11 @@ export default function CategoryTable() {
   ];
 
   return (
-  <>
-    <Menu/>
+      <>
+      <Menu/>
     <Box style={{marginLeft:160,marginTop:90}}
       sx={{
         height: 500,
-        
         width: '100%',
         '& .actions': {
           color: 'text.secondary',
@@ -187,7 +184,6 @@ export default function CategoryTable() {
         },
       }}
     >
-        
       <DataGridPro
         rows={rows}
         columns={columns}

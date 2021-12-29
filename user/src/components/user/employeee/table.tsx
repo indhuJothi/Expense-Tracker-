@@ -22,8 +22,8 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import data from './mockdata.json'
-import Menu from '../components/common/menu/menu'
+import data from '../login/mockdata.json'
+import Menu from '../../common/menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
@@ -43,7 +43,7 @@ function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
 
   const handleClick = () => {
-    const id = randomId();
+    const id = apiRef.current.getRowsCount() +1
     apiRef.current.updateRows([{ id, isNew: true }]);
     apiRef.current.setRowMode(id, 'edit');
     setTimeout(() => {
@@ -202,7 +202,7 @@ export default function FullFeaturedCrudGrid(props:rowprop) {
   return (
     <>
     <Menu/>
-    <Box style={{marginLeft:160,marginTop:90}}
+    <Box style={{marginLeft:160,marginTop:90,width:'140%'}}
       sx={{
         height: 500,
         width: '100%',

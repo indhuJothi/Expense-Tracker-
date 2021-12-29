@@ -1,12 +1,12 @@
 import react from 'react'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
-import EmployeeTable from  '../../user/usertable'
-import CategoryTable from '../../user/category/category-table'
-import DepartmentTable from '../../user/department/department-table'
-import Roletable from '../../user/role/role-table'
+import EmployeeTable from  '../../user/employeee/usertable'
+import CategoryTable from '../../user/category/category'
+import DepartmentTable from '../../user/department/department'
+import Roletable from '../../user/role/role'
 import Header from '../header/header'
 import Loginform from '../../user/login/login-form'
-import Menu from '../menu/menu'
+
 
 
 class Routing extends react.Component{
