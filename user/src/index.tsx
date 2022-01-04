@@ -9,12 +9,12 @@ import Table from '../src/components/table/roledatafile'
 import FormDialog from './components/table/editdetails';
 import { BrowserRouter as Router } from 'react-router-dom'
 import EmployeeTable from  '../src/components/user/employeee/usertable'
-
+import  RouteTable from '../src/components/table/route'
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
-    <Data/>
+    {/* <Data/> */}
     {/* <EmployeeTable/> */}
     {/* <Table/> */}
     {/* <FormDialog/> */}
@@ -22,6 +22,7 @@ ReactDOM.render(
     <Header/>
     </Router>
      */}
+     <RouteTable/>
  
    
   

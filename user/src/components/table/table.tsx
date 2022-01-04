@@ -11,6 +11,9 @@ import Data from "./datasentfile";
 import FormDialog from "./editdetails";
 import { Delete } from "@material-ui/icons"; import { DataGrid, GridColumns, GridRowsProp } from '@mui/x-data-grid';
 import ConfirmDelete from './deletedetails'
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import { GridToolbarContainer } from '@mui/x-data-grid-pro'
 
 
 type rowprops = {
@@ -59,63 +62,103 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
     this.setState({
       showform: true
     })
-    let mydata = {
-      id: data.id,
-      Category: data.Category,
-      MinimumLimit: data.MinimumLimit,
-      Role: data.Role,
-      Department: data.Department,
-      TotalAmount: data.TotalAmount
-    }
-
-    localStorage.setItem("editdetails", JSON.stringify(mydata))
+    localStorage.setItem("editdetails", JSON.stringify(data))
   }
-
-  showdeletealert = (e: any, data: any) => {
+  deletedetails=(e:any,data:any)=>{
     e.preventDefault()
-
+    localStorage.setItem("willdelete",JSON.stringify(data))
+    this.setState({
+      delete:true
+    })
+    
+  }
+  showdeletealert = (value:boolean, data: any) => {
+    
+      this.setState({
+        delete:false
+      })
     let deleteData: any[] = []
-
+  
     if (localStorage.getItem("deletedetails") !== null) {
 
       let deleteddata = JSON.parse(localStorage.getItem("deletedetails") || "{}")
       deleteddata.push(data)
       localStorage.setItem("deletedetails", JSON.stringify(deleteddata))
-      this.setState({
-        delete: true
-      })
-
       let check
-      if (localStorage.getItem("Columns") !== null) {
-        check = JSON.parse(localStorage.getItem("Columns") || "[]")
+      let  filterdata 
+      if(data.Category!==null){
+      if(localStorage.getItem("editedcolumns")!==null){
+        check=JSON.parse(localStorage.getItem("editedcolumns")||"[]")
       }
-      else {
-        check = JSON.parse(localStorage.getItem("categorydetails") || "[]")
+      else{
+        check=JSON.parse(localStorage.getItem("Columns")||"[]")
       }
       let takeset = new Set(deleteddata)
-      console.log(takeset)
-      console.log(deleteddata)
+   
       let newarr = check.filter((data: Object) => {
         return takeset.has(data)
       })
       check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
-      console.log(check)
-      localStorage.setItem("Columns", JSON.stringify(check))
+  
+      localStorage.setItem("editedcolumns", JSON.stringify(check))
       window.location.reload()
+    }
+    else if(data.Role!==null){
+      if(localStorage.getItem("editedcolumns")!==null){
+        check=JSON.parse(localStorage.getItem("editedcolumns")||"[]")
+      }
+      else{
+        check=JSON.parse(localStorage.getItem("Columns")||"[]")
+      }
+      let takeset = new Set(deleteddata)
+   
+      let newarr = check.filter((data: Object) => {
+        return takeset.has(data)
+      })
+      check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
+   
+      localStorage.setItem("editedcolumns", JSON.stringify(check))
+      window.location.reload()
+
+    }
     }
 
     else {
       deleteData = [data]
+      let filterdata
       localStorage.setItem("deletedetails", JSON.stringify(deleteData))
-      this.setState({
-        delete: true
-      })
-      let getdata = JSON.parse(localStorage.getItem("categorydetails") || "[]")
-      getdata = getdata.filter((item: any) => {
-        return item.id !== data.id
-      })
-      localStorage.setItem("Columns", JSON.stringify(getdata))
-      window.location.reload()
+     
+      let getdata 
+      if(localStorage.getItem("editedcolumns")!==null){
+        getdata = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
+      }
+      else if(data.Category){
+        
+        getdata = JSON.parse(localStorage.getItem("categorydetails") || "[]")
+        filterdata = getdata.filter((item: any) => {
+          return item.Category !== data.Category
+         
+        })
+        localStorage.setItem("editedcolumns", JSON.stringify(filterdata))
+        window.location.reload()
+      alert("hi")
+        console.log(getdata)
+      }
+      else if(data.Role){
+        getdata = JSON.parse(localStorage.getItem("Roledetails") || "[]")
+        alert("Role")
+        filterdata = getdata.filter((item: any) => {
+          return item.Role !== data.Role
+         
+        })
+        console.log(getdata)
+        localStorage.setItem("editedcolumns", JSON.stringify(filterdata))
+        window.location.reload()
+       
+      }
+     
+      console.log(filterdata)
+   
 
     }
 
@@ -123,7 +166,8 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
   closepopup = (value: boolean) => {
 
     this.setState({
-      showform: false
+      showform: false,
+      delete:false
     })
 
   }
@@ -146,7 +190,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
           columnarray.push(<TableCell><EditIcon onClick={(e) => { this.showalert(e, data) }}></EditIcon></TableCell>)
         }
         else if (row.property === "Delete") {
-          columnarray.push(<TableCell><Delete onClick={(e) => { this.showdeletealert(e, data) }}></Delete></TableCell>)
+          columnarray.push(<TableCell><Delete onClick={(e) => { this.deletedetails(e, data) }}></Delete></TableCell>)
         }
         else {
           columnarray.push(<TableCell key={data.id}>{data[row.property]}</TableCell>)
@@ -174,71 +218,76 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
     this.setState({
       showform: false
     })
-
+  console.log(editvalue.Role)
     localStorage.setItem("savedetails", JSON.stringify(editvalue))
     let editrole
+    if (editvalue.Category) {
 
-    if (editvalue.Role !== undefined) {
-      editrole = JSON.parse(localStorage.getItem("roledetails") || "{}")
-      editrole.map((data: any) => {
-        if (parseInt(data.id) === parseInt(editvalue.id)) {
-          return data.id = editvalue.id,
-            data.Role = editvalue.Role
-
-        }
-
-      }
-      )
-      localStorage.setItem("Columns", JSON.stringify(editrole))
-    }
-
-    if (editvalue.Category !== undefined) {
-
-      if (localStorage.getItem("Columns") !== null) {
-        editrole = JSON.parse(localStorage.getItem("Columns") || "[]")
+      if (localStorage.getItem("editedcolumns") !== null) {
+        editrole = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
       }
       else {
         editrole = JSON.parse(localStorage.getItem("categorydetails") || "[]")
       }
-      editrole.map((data: any) => {
-        if (parseInt(data.id) === parseInt(editvalue.id)) {
-          return data.id = editvalue.id,
-            data.Category = editvalue.Category,
-            data.MinimumLimit = editvalue.MinimumLimit
-
+     let editedvaulue= editrole.map((data: any) => {
+        if (data.id === editvalue.id) {
+          data = editvalue
         }
+        return data
+      }
+      )
+      localStorage.setItem("editedcolumns", JSON.stringify(editedvaulue))
+     
+    }
+    else if (editvalue.Role) {
+
+      if (localStorage.getItem("editedcolumns") !== null) {
+        editrole = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
+      }
+      else {
+        editrole = JSON.parse(localStorage.getItem("Roledetails") || "[]")
+      }
+     let editedvaulue= editrole.map((data: any) => {
+        if (data.id === editvalue.id) {
+          data = editvalue
+        }
+       return data
 
       }
       )
-      localStorage.setItem("Columns", JSON.stringify(editrole))
+     
+      localStorage.setItem("editedcolumns", JSON.stringify(editedvaulue))
     }
 
     // window.location.reload()
 
   }
 
-  deletedetails = (value: boolean, deletedetail: any) => {
-    this.setState({
-      delete: false
-    })
+  // deletedetails(value: boolean, deletedetail: any){
+  
 
-    // let result = prevData.filter((data) => { return (data.Department != this.state.DeleteDepartment) })
-  }
+  //  console.log(deletedetail)
+  // }
+
 
   render() {
     let rows = this.props.rows
-    let columns = this.props.columns
-    { localStorage.getItem('Columns') === null ? columns = this.props.columns : columns = JSON.parse(localStorage.getItem("Columns") || '[]') }
+    let columns 
+    { localStorage.getItem('editedcolumns') === null ? columns = this.props.columns : columns = JSON.parse(localStorage.getItem("editedcolumns") || '[]') }
+    
+  
     return (
       <>
+      
         <TableContainer component={Paper}>
+          
           <Table>
             {this.createtable(rows, columns)}
 
           </Table>
           {this.state.showform && <FormDialog save={this.save} close={this.closepopup} />}
         </TableContainer>
-        {this.state.delete && <ConfirmDelete delete={this.deletedetails} />}
+        {this.state.delete && <ConfirmDelete delete={this.showdeletealert} close={this.closepopup} deletedata={JSON.parse(localStorage.getItem("willdelete")||"{}")} />}
 
 
       </>

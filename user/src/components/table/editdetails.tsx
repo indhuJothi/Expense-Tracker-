@@ -13,26 +13,17 @@ type functionprop={
 }
 export default function FormDialog(prop:functionprop) {
   let editdetails = JSON.parse(localStorage.getItem("editdetails")|| '{}') 
-let fielddetails={
-  id:editdetails.id,
-  Role:editdetails.Role,
-  Category:editdetails.Category,
-  Minimumlimit:editdetails.MinimumLimit
-}
+let fielddetails=editdetails
+console.log(fielddetails)
   const [open, setOpen] = React.useState(true);
   const [id,setId] = React.useState(fielddetails.id);
   const [Category,setCategory]=React.useState(fielddetails.Category)
-  const [MinimumLimit,setMinimumLimit]=React.useState(fielddetails.Minimumlimit)
+  const [MinimumLimit,setMinimumLimit]=React.useState(fielddetails.MinimumLimit)
   const [Role,setRole]=React.useState(fielddetails.Role)
 
 
 
-  let savedetails={
-    id:id,
-    Role:Role,
-    Category:Category,
-    MinimumLimit:MinimumLimit
-  }
+  let savedetails:any
 
 
 
@@ -46,10 +37,10 @@ let fielddetails={
            Edit the details
           </DialogContentText>
         
-          {/* {Object.keys(editdetails).map((key)=> */}
+         
           
    {fielddetails.Role!==undefined &&
-    <form onSubmit={()=>{prop.save(false,savedetails)}}>
+    <form onSubmit={()=>{prop.save(false,savedetails={id:id,Role:Role})}}>
   <TextField
           autoFocus
           margin="dense"
@@ -76,7 +67,11 @@ let fielddetails={
       
 
 {fielddetails.Category!==undefined &&
-<form onSubmit={()=>prop.save(false,savedetails)}>
+<form onSubmit={()=>prop.save(false,savedetails={
+  id:id,
+  Category:Category,
+  MinimumLimit:MinimumLimit
+})}>
   <TextField
    autoFocus
    margin='dense'
@@ -101,7 +96,7 @@ let fielddetails={
       label="MinimumLimit"
       fullWidth
       id="Minimumlimit"
-      defaultValue={fielddetails.Minimumlimit}
+      defaultValue={fielddetails.MinimumLimit}
       onChange={(e)=>{setMinimumLimit(e.target.value)}}
     
       />

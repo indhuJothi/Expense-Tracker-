@@ -1,10 +1,22 @@
+
 import React from 'react'
 import role from '../user/role/role-data.json'
 import BasicTable from './table'
 export default class Roletable extends React.Component{
     componentDidMount(){
-       localStorage.setItem("roledetails",JSON.stringify(role))
-       localStorage.removeItem("Columns")
+       localStorage.setItem("Roledetails",JSON.stringify(role))
+        // localStorage.removeItem("editedcolumns")
+        let alreadyaditeddata
+        if(localStorage.getItem("editedcolumns")){
+            alreadyaditeddata = JSON.parse(localStorage.getItem("editedcolumns")||"[]")
+            alreadyaditeddata.map((item:any)=>{
+                if(item.Category)
+                {
+                    localStorage.removeItem('editedcolumns')
+
+                }
+            })
+        }
     }
    render(){
     const rows=[
@@ -27,9 +39,12 @@ export default class Roletable extends React.Component{
         }
     ]
     let columns
-    {localStorage.getItem("roledetails")!==null?columns=JSON.parse(localStorage.getItem("roledetails")||"{}"):columns=role}
+    {localStorage.getItem("Roledetails")!==null?columns=JSON.parse(localStorage.getItem("Roledetails")||"{}"):columns=role}
        return(
+          
+       
         <BasicTable rows={rows} columns={columns}/>
+       
        )
    }
 }
