@@ -4,16 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Routing from  './components/common/routing/routing'
-import Data from '../src/components/table/datasentfile'
-import Table from '../src/components/table/roledatafile'
-import FormDialog from './components/table/editdetails';
+import Data from './components/pages/category/category'
+import Table from './components/pages/role/role'
+import FormDialog from './components/common/table/editdetails';
 import { BrowserRouter as Router } from 'react-router-dom'
 import EmployeeTable from  '../src/components/user/employeee/usertable'
-import  RouteTable from '../src/components/table/route'
+import  RouteTable from './components/pages/route'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Routing/> */}
+    <Routing/>
     {/* <Data/> */}
     {/* <EmployeeTable/> */}
     {/* <Table/> */}
@@ -22,7 +22,7 @@ ReactDOM.render(
     <Header/>
     </Router>
      */}
-     <RouteTable/>
+     {/* <RouteTable/> */}
  
    
   

@@ -1,5 +1,5 @@
 import React from 'react'
-import data from '../login/mockdata.json'
+import data from '../../pages/login/mockdata.json'
 import FullFeaturedCrudGrid from './table'
 export default class EmployeeTable extends React.Component{
     render(){

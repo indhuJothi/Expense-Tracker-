@@ -22,7 +22,7 @@ import {
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import data from './department-data.json'
+import data from '../../pages/department/department-data.json'
 import Menu from '../../common/menu/menu'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
