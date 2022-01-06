@@ -14,7 +14,7 @@ type functionprop = {
 export default function FormDialog(prop: functionprop) {
   let editdetails = JSON.parse(localStorage.getItem("editdetails") || '{}')
   let fielddetails = editdetails
-  console.log(fielddetails)
+
   const [open, setOpen] = React.useState(true);
   const [id, setId] = React.useState(fielddetails.id);
   const [Category, setCategory] = React.useState(fielddetails.Category)
@@ -53,6 +53,7 @@ export default function FormDialog(prop: functionprop) {
                 id="id"
                 label="id"
                 fullWidth
+                disabled
                 onChange={(e) => { setId(e.target.value) }}
                 variant="standard"
 
@@ -67,7 +68,10 @@ export default function FormDialog(prop: functionprop) {
                 onChange={(e) => { setRole(e.target.value) }}
                 defaultValue={fielddetails.Role}
               />
-              <Button type='submit' value="submit">Submit</Button>
+              <DialogActions>
+                <Button type='submit' value="submit">Submit</Button>
+                <Button onClick={() => { prop.close(false) }}>Cancel</Button>
+              </DialogActions>
             </form>
           }
 
@@ -81,6 +85,7 @@ export default function FormDialog(prop: functionprop) {
                 id="id"
                 label="id"
                 fullWidth
+                disabled
                 onChange={(e) => { setId(e.target.value) }}
                 variant="standard"
 
@@ -104,7 +109,10 @@ export default function FormDialog(prop: functionprop) {
                 onChange={(e) => { setTotalAmount(e.target.value) }}
                 defaultValue={fielddetails.TotalAmount}
               />
-              <Button type='submit' value="submit">Submit</Button>
+              <DialogActions>
+                <Button type='submit' value="submit">Submit</Button>
+                <Button onClick={() => { prop.close(false) }}>Cancel</Button>
+              </DialogActions>
             </form>
           }
 
@@ -113,12 +121,14 @@ export default function FormDialog(prop: functionprop) {
               id: id,
               Category: Category,
               MinimumLimit: MinimumLimit
+              
             })}>
               <TextField
                 autoFocus
                 margin='dense'
                 label='id'
                 fullWidth
+                disabled
                 id='id'
                 defaultValue={fielddetails.id}
                 onChange={(e) => setId(e.target.value)}
@@ -142,7 +152,10 @@ export default function FormDialog(prop: functionprop) {
                 onChange={(e) => { setMinimumLimit(e.target.value) }}
 
               />
-              <Button type='submit' value="submit">Submit</Button>
+              <DialogActions>
+                <Button type='submit' value="submit">Submit</Button>
+                <Button onClick={() => { prop.close(false) }}>Cancel</Button>
+              </DialogActions>
 
             </form>
           }
@@ -157,6 +170,7 @@ export default function FormDialog(prop: functionprop) {
                 id="id"
                 label="id"
                 fullWidth
+                disabled
                 onChange={(e) => { setId(e.target.value) }}
                 variant="standard"
 
@@ -224,15 +238,14 @@ export default function FormDialog(prop: functionprop) {
                 onChange={(e) => { setPassword(e.target.value) }}
                 defaultValue={fielddetails.Password}
               />
-              <Button type='submit' value="submit">Submit</Button>
+              <DialogActions>
+                <Button type='submit' value="submit">Submit</Button>
+                <Button onClick={() => { prop.close(false) }}>Cancel</Button>
+              </DialogActions>
             </form>
           }
 
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => { prop.close(false) }}>Cancel</Button>
-          {/* <Button onClick={()=>{prop.close(false)}}>Save</Button> */}
-        </DialogActions>
       </Dialog>
     </div>
   );

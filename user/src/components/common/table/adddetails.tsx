@@ -29,16 +29,16 @@ function AddDetails(prop: functionprop) {
 
     const rows = JSON.parse(localStorage.getItem("currentcolumns") || "[]")
     const rowskeys = Object.keys(Object.assign({}, ...rows))
-    console.log(rowskeys)
+
     function newdetails() {
-        //    alert(EmployeeName)
+
         if (rowskeys.includes("EmployeeName")) {
             if (localStorage.getItem("editedcolumns")) {
                 let storeddetails = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
                 let storeddetailskey = Object.keys(Object.assign({}, ...storeddetails))
 
                 let newdetails = {
-                    id: id,
+                    id: storeddetails.length+1,
                     EmployeeName: EmployeeName,
                     Email: Email,
                     Username: Username,
@@ -49,13 +49,13 @@ function AddDetails(prop: functionprop) {
                 }
                 if (storeddetails.includes("EmployeeName")) {
                     storeddetails.push(newdetails)
-                    console.log(storeddetails)
+
                     localStorage.setItem("editedcolumns", JSON.stringify(storeddetails))
                 }
                 else {
                     let storeddetails = JSON.parse(localStorage.getItem("employeedetails") || "[]")
                     let newdetails = {
-                        id: id,
+                        id: storeddetails.length+1,
                         EmployeeName: EmployeeName,
                         Email: Email,
                         Username: Username,
@@ -65,14 +65,14 @@ function AddDetails(prop: functionprop) {
 
                     }
                     storeddetails.push(newdetails)
-                    console.log(storeddetails)
+
                     localStorage.setItem("employeedetails", JSON.stringify(storeddetails))
                 }
             }
             else {
                 let storeddetails = JSON.parse(localStorage.getItem("employeedetails") || "[]")
                 let newdetails = {
-                    id: id,
+                    id: storeddetails.length+1,
                     EmployeeName: EmployeeName,
                     Email: Email,
                     Username: Username,
@@ -82,39 +82,48 @@ function AddDetails(prop: functionprop) {
 
                 }
                 storeddetails.push(newdetails)
-                console.log(storeddetails)
+
                 localStorage.setItem("employeedetails", JSON.stringify(storeddetails))
             }
         }
         if ((rowskeys.includes("Department") && !rowskeys.includes("EmployeeName"))) {
 
-            let newdetails = {
-                id: id,
-                Department: Department,
-                TotalAmount: TotalAmount
-            }
+           
             if (localStorage.getItem("editedcolumns")) {
+
                 let storeddetails = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
                 let storeddetailskey = Object.keys(Object.assign({}, ...storeddetails))
+                let newdetails = {
+                    id: storeddetails.length+1,
+                    Department: Department,
+                    TotalAmount: TotalAmount
+                }
                 if (storeddetailskey.includes("Department")) {
                     storeddetails.push(newdetails)
                     localStorage.setItem("editedcolumns", JSON.stringify(storeddetails))
                 }
                 else {
                     let storeddetails = JSON.parse(localStorage.getItem("departmentdetails") || "[]")
+                    let newdetails = {
+                        id: storeddetails.length+1,
+                        Department: Department,
+                        TotalAmount: TotalAmount
+                    }
                     storeddetails.push(newdetails)
+
                     localStorage.setItem("departmentdetails", JSON.stringify(storeddetails))
 
                 }
 
             }
             else {
+               
+                let storeddetails = JSON.parse(localStorage.getItem("departmentdetails") || "[]")
                 let newdetails = {
-                    id: id,
+                    id: storeddetails.length+1,
                     Department: Department,
                     TotalAmount: TotalAmount
                 }
-                let storeddetails = JSON.parse(localStorage.getItem("departmentdetails") || "[]")
                 storeddetails.push(newdetails)
                 localStorage.setItem("departmentdetails", JSON.stringify(storeddetails))
 
@@ -122,21 +131,28 @@ function AddDetails(prop: functionprop) {
 
         }
         if (rowskeys.includes("Category")) {
-            let newdetails = {
-                id: id,
-                Category: Category,
-                MinimumLimit: MinimumLimit
-            }
+         
             if (localStorage.getItem("editedcolumns")) {
                 let storeddetails = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
                 let storeddetailskey = Object.keys(Object.assign({}, ...storeddetails))
+                let newdetails = {
+                    id: storeddetails.length+1,
+                    Category: Category,
+                    MinimumLimit: MinimumLimit
+                }
                 if (storeddetailskey.includes("Category")) {
                     storeddetails.push(newdetails)
                     localStorage.setItem("editedcolumns", JSON.stringify(storeddetails))
                 }
                 else {
                     let storeddetails = JSON.parse(localStorage.getItem("categorydetails") || "[]")
+                    let newdetails = {
+                        id: storeddetails.length+1,
+                        Category: Category,
+                        MinimumLimit: MinimumLimit
+                    }
                     storeddetails.push(newdetails)
+                  
                     localStorage.setItem("categorydetails", JSON.stringify(storeddetails))
 
                 }
@@ -144,18 +160,25 @@ function AddDetails(prop: functionprop) {
             }
             else {
                 let storeddetails = JSON.parse(localStorage.getItem("categorydetails") || "[]")
+                let newdetails = {
+                    id: storeddetails.length+1,
+                    Category: Category,
+                    MinimumLimit: MinimumLimit
+                }
                 storeddetails.push(newdetails)
+                
                 localStorage.setItem("categorydetails", JSON.stringify(storeddetails))
 
             }
         }
         if ((rowskeys.includes("Role") && !rowskeys.includes("EmployeeName"))) {
-            let newdetails = {
-                id: id,
-                Role: Role
-            }
+           
             if (localStorage.getItem("editedcolumns")) {
                 let storeddetails = JSON.parse(localStorage.getItem("editedcolumns") || "[]")
+                let newdetails = {
+                    id: storeddetails.length+1,
+                    Role: Role
+                }
                 let storeddetailskey = Object.keys(Object.assign({}, ...storeddetails))
                 if (storeddetailskey.includes("Role")) {
                     storeddetails.push(newdetails)
@@ -163,6 +186,10 @@ function AddDetails(prop: functionprop) {
                 }
                 else {
                     let storeddetails = JSON.parse(localStorage.getItem("Roledetails") || "[]")
+                    let newdetails = {
+                        id: storeddetails.length+1,
+                        Role: Role
+                    }
                     storeddetails.push(newdetails)
                     localStorage.setItem("Roledetails", JSON.stringify(storeddetails))
 
@@ -171,6 +198,10 @@ function AddDetails(prop: functionprop) {
             }
             else {
                 let storeddetails = JSON.parse(localStorage.getItem("Roledetails") || "[]")
+                let newdetails = {
+                    id: storeddetails.length+1,
+                    Role: Role
+                }
                 storeddetails.push(newdetails)
                 localStorage.setItem("Roledetails", JSON.stringify(storeddetails))
 
@@ -182,26 +213,16 @@ function AddDetails(prop: functionprop) {
 
     return (
         <Dialog open={open}
-        // onClose={()=>{prop.close(false)}}
+            onClose={() => { prop.close(false) }}
         >
             <DialogTitle>Add Details</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    Add Details
-                </DialogContentText>
-                {rowskeys.includes("EmployeeName") && <form
+                <form
                     onSubmit={newdetails}
                 >
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="id"
-                        label="id"
-                        fullWidth
-                        onChange={(e) => { setId(e.target.value) }}
-                        variant="standard"
-                        value={id}
-                    />
+                {rowskeys.includes("EmployeeName") && 
+                <>
+                 
                     <TextField
                         autoFocus
                         margin="dense"
@@ -263,21 +284,11 @@ function AddDetails(prop: functionprop) {
                         onChange={(e) => { setPassword(e.target.value) }}
                         value={Password}
                     />
-                    <Button type='submit' value="submit">Submit</Button>
-                </form>}
+                  </> 
+               }
                 {(rowskeys.includes("Department") && !rowskeys.includes("EmployeeName")) &&
-                    <form onSubmit={newdetails}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="id"
-                            label="id"
-                            fullWidth
-                            onChange={(e) => { setId(e.target.value) }}
-                            variant="standard"
-
-                            value={id}
-                        />
+                    <>
+                     
                         <TextField
                             autoFocus
                             margin="dense"
@@ -296,20 +307,11 @@ function AddDetails(prop: functionprop) {
                             onChange={(e) => { setTotalAmount(e.target.value) }}
                             value={TotalAmount}
                         />
-                        <Button type='submit' value="submit">Submit</Button>
-                    </form>
+                      </>
                 }
                 {rowskeys.includes("Category") &&
-                    <form onSubmit={newdetails}>
-                        <TextField
-                            autoFocus
-                            margin='dense'
-                            label='id'
-                            fullWidth
-                            id='id'
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                        />
+                    <>
+                       
                         <TextField
                             autoFocus
                             margin="dense"
@@ -324,28 +326,18 @@ function AddDetails(prop: functionprop) {
                             margin='dense'
                             label="MinimumLimit"
                             fullWidth
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             id="Minimumlimit"
                             value={MinimumLimit}
                             onChange={(e) => { setMinimumLimit(e.target.value) }}
 
                         />
-                        <Button type='submit' value="submit">Submit</Button>
-
-                    </form>
+                        </>
+                 
                 }
                 {(rowskeys.includes("Role") && !rowskeys.includes("EmployeeName")) &&
-                    <form onSubmit={newdetails}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="id"
-                            label="id"
-                            fullWidth
-                            onChange={(e) => { setId(e.target.value) }}
-                            variant="standard"
-
-                            value={id}
-                        />
+                   <>
+                      
                         <TextField
                             autoFocus
                             margin="dense"
@@ -355,16 +347,16 @@ function AddDetails(prop: functionprop) {
                             onChange={(e) => { setRole(e.target.value) }}
                             value={Role}
                         />
-                        <Button type='submit' value="submit">Submit</Button>
-                    </form>
+                  </>
                 }
-
-
-            </DialogContent>
-            <DialogActions>
+                   <DialogActions>
+            <Button type='submit' value="submit">Submit</Button>
                 <Button onClick={() => { prop.close(false) }}>Cancel</Button>
 
-            </DialogActions>
+            </DialogActions>  
+            </form>
+            </DialogContent>
+        
         </Dialog>
 
     )

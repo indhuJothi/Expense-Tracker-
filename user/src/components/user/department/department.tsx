@@ -34,7 +34,7 @@ function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
 
   const handleClick = () => {
-    const id = apiRef.current.getRowsCount() +1
+    const id = apiRef.current.getRowsCount() + 1
     apiRef.current.updateRows([{ id, isNew: true }]);
     apiRef.current.setRowMode(id, 'edit');
     setTimeout(() => {
@@ -117,12 +117,12 @@ export default function DepartmentTable() {
       editable: true,
     },
     {
-        field:'TotalAmount',
-        headerName: 'TotalAmount',
-        width: 180,
-  
-        editable: true,
-      },
+      field: 'TotalAmount',
+      headerName: 'TotalAmount',
+      width: 180,
+
+      editable: true,
+    },
     {
       field: 'actions',
       type: 'actions',
@@ -170,36 +170,36 @@ export default function DepartmentTable() {
   ];
 
   return (
-      <>
-      <Menu/>
-    <Box style={{marginLeft:160,marginTop:90}}
-      sx={{
-        height: 500,
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
-    >
-      <DataGridPro
-        rows={rows}
-        columns={columns}
-        apiRef={apiRef}
-        editMode="row"
-        onRowEditStart={handleRowEditStart}
-        onRowEditStop={handleRowEditStop}
-        onCellFocusOut={handleCellFocusOut}
-        components={{
-          Toolbar: EditToolbar,
+    <>
+      <Menu />
+      <Box style={{ marginLeft: 160, marginTop: 90 }}
+        sx={{
+          height: 500,
+          width: '100%',
+          '& .actions': {
+            color: 'text.secondary',
+          },
+          '& .textPrimary': {
+            color: 'text.primary',
+          },
         }}
-        componentsProps={{
-          toolbar: { apiRef },
-        }}
-      />
-    </Box>
+      >
+        <DataGridPro
+          rows={rows}
+          columns={columns}
+          apiRef={apiRef}
+          editMode="row"
+          onRowEditStart={handleRowEditStart}
+          onRowEditStop={handleRowEditStop}
+          onCellFocusOut={handleCellFocusOut}
+          components={{
+            Toolbar: EditToolbar,
+          }}
+          componentsProps={{
+            toolbar: { apiRef },
+          }}
+        />
+      </Box>
     </>
   );
 }

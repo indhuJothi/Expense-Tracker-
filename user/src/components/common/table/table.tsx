@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
-import Data from "../../pages/category/category";
+import Data from "../../user/category/category";
 import FormDialog from "./editdetails";
 import { Delete } from "@material-ui/icons"; import { DataGrid, GridColumns, GridRowsProp } from '@mui/x-data-grid';
 import ConfirmDelete from './deletedetails'
@@ -107,7 +107,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         let newarr = check.filter((data: Object) => {
           return takeset.has(data)
         })
-        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
+        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (parseInt(rm.id) === parseInt(ar.id))))
 
         localStorage.setItem("editedcolumns", JSON.stringify(check))
         window.location.reload()
@@ -124,7 +124,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         let newarr = check.filter((data: Object) => {
           return takeset.has(data)
         })
-        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
+        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (parseInt(rm.id) === parseInt(ar.id))))
 
         localStorage.setItem("editedcolumns", JSON.stringify(check))
         window.location.reload()
@@ -142,7 +142,8 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         let newarr = check.filter((data: Object) => {
           return takeset.has(data)
         })
-        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
+        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (parseInt(rm.id) === parseInt(ar.id))))
+
 
         localStorage.setItem("editedcolumns", JSON.stringify(check))
         window.location.reload()
@@ -159,7 +160,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         let newarr = check.filter((data: Object) => {
           return takeset.has(data)
         })
-        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (rm.id === ar.id)))
+        check = check.filter((ar: any) => !deleteddata.find((rm: any) => (parseInt(rm.id) === parseInt(ar.id))))
 
         localStorage.setItem("editedcolumns", JSON.stringify(check))
         window.location.reload()
@@ -190,7 +191,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
       }
       else if ((data.Role && !data.EmployeeName)) {
         getdata = JSON.parse(localStorage.getItem("Roledetails") || "[]")
-        // alert("Role")
+
         filterdata = getdata.filter((item: any) => {
           return item.Role !== data.Role
 
@@ -203,7 +204,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
       }
       else if ((data.Department && !data.EmployeeName)) {
         getdata = JSON.parse(localStorage.getItem("departmentdetails") || "[]")
-        // alert("Role")
+
         filterdata = getdata.filter((item: any) => {
           return item.Department !== data.Department
 
@@ -217,7 +218,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
 
       else if (data.EmployeeName) {
         getdata = JSON.parse(localStorage.getItem("employeedetails") || "[]")
-        // alert("Role")
+
         filterdata = getdata.filter((item: any) => {
           return item.EmployeeName !== data.EmployeeName
 
@@ -291,7 +292,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
     this.setState({
       showform: false
     })
-    console.log(editvalue.Role)
+
     localStorage.setItem("savedetails", JSON.stringify(editvalue))
     let editrole
     if (editvalue.Category) {
@@ -303,7 +304,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         editrole = JSON.parse(localStorage.getItem("categorydetails") || "[]")
       }
       let editedvaulue = editrole.map((data: any) => {
-        if (data.id === editvalue.id) {
+        if (parseInt(data.id) === parseInt(editvalue.id)) {
           data = editvalue
         }
         return data
@@ -322,7 +323,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         editrole = JSON.parse(localStorage.getItem("Roledetails") || "[]")
       }
       let editedvaulue = editrole.map((data: any) => {
-        if (data.id === editvalue.id) {
+        if (parseInt(data.id) === parseInt(editvalue.id)) {
           data = editvalue
         }
         return data
@@ -343,7 +344,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         editrole = JSON.parse(localStorage.getItem("departmentdetails") || "[]")
       }
       let editedvaulue = editrole.map((data: any) => {
-        if (data.id === editvalue.id) {
+        if (parseInt(data.id) === parseInt(editvalue.id)) {
           data = editvalue
         }
         return data
@@ -365,7 +366,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
         editrole = JSON.parse(localStorage.getItem("employeedetails") || "[]")
       }
       let editedvaulue = editrole.map((data: any) => {
-        if (data.id === editvalue.id) {
+        if (parseInt(data.id) === parseInt(editvalue.id)) {
           data = editvalue
         }
         return data
@@ -400,26 +401,26 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
 
       let propskeys = Object.keys(Object.assign({}, ...propscolumn))
       let editkeys = Object.keys(Object.assign({}, ...editedcolumn))
-      console.log(propskeys)
-      console.log(editkeys)
+
       if (JSON.stringify(propskeys) === JSON.stringify(editkeys)) {
         columns = JSON.parse(localStorage.getItem("editedcolumns") || '[]')
-        console.log(columns)
+
       }
       else {
 
         columns = this.props.columns
         localStorage.removeItem("editedcolumns")
         localStorage.removeItem("deletedetails")
-        console.log(columns)
+
       }
     }
     else {
       columns = JSON.parse(localStorage.getItem("editedcolumns") || '[]')
-      console.log(columns)
+
     }
     localStorage.setItem("currentcolumns", JSON.stringify(columns))
-
+    
+    const rowskeys = Object.keys(Object.assign({}, ...columns))
 
     return (
       <>
@@ -439,7 +440,11 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
 
 
           <TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }}>
-            <Button onClick={() => { this.adddetails() }} >Add</Button>
+
+          {rowskeys.includes("Category") && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Category</button>}
+          {(!rowskeys.includes("EmployeeName")&& rowskeys.includes("Role"))&& <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Role</button>}
+          {(rowskeys.includes("Department") && !rowskeys.includes("EmployeeName") ) && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Department</button>}
+            {rowskeys.includes("EmployeeName") && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Employee</button>}
             <Table>
               {this.createtable(rows, columns)}
 

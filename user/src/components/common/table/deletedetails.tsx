@@ -19,7 +19,7 @@ type functionprop = {
 
 const ConfirmDelete = (prop: functionprop) => {
   let deletedata = prop.deletedata
-  console.log(deletedata)
+
   return (
     <Dialog open={true} maxWidth="sm" fullWidth>
       <DialogTitle>Confirm the action</DialogTitle>

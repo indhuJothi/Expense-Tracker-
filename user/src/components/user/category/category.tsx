@@ -23,7 +23,7 @@ import {
   randomId,
 } from '@mui/x-data-grid-generator';
 import Menu from '../../common/menu/menu';
-import data from  '../../pages/category/category-data.json'
+import data from '../../pages/category/category-data.json'
 const rows: GridRowsProp = data
 interface EditToolbarProps {
   apiRef: GridApiRef;
@@ -35,7 +35,7 @@ function EditToolbar(props: EditToolbarProps) {
   const { apiRef } = props;
 
   const handleClick = () => {
-    const id = apiRef.current.getRowsCount() +1
+    const id = apiRef.current.getRowsCount() + 1
     apiRef.current.updateRows([{ id, isNew: true }]);
     apiRef.current.setRowMode(id, 'edit');
     setTimeout(() => {
@@ -56,7 +56,7 @@ function EditToolbar(props: EditToolbarProps) {
 }
 
 export default function CategoryTable() {
-  
+
   const apiRef = useGridApiRef();
 
   const handleRowEditStart = (
@@ -119,12 +119,12 @@ export default function CategoryTable() {
       editable: true,
     },
     {
-        field:'MinimumLimit',
-        headerName: 'MinimumLimit',
-        width: 180,
-  
-        editable: true,
-      },
+      field: 'MinimumLimit',
+      headerName: 'MinimumLimit',
+      width: 180,
+
+      editable: true,
+    },
     {
       field: 'actions',
       type: 'actions',
@@ -172,38 +172,38 @@ export default function CategoryTable() {
   ];
 
   return (
-  <>
-    <Menu/>
-    <Box style={{marginLeft:160,marginTop:90}}
-      sx={{
-        height: 500,
-        
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
-    >
-        
-      <DataGridPro
-        rows={rows}
-        columns={columns}
-        apiRef={apiRef}
-        editMode="row"
-        onRowEditStart={handleRowEditStart}
-        onRowEditStop={handleRowEditStop}
-        onCellFocusOut={handleCellFocusOut}
-        components={{
-          Toolbar: EditToolbar,
+    <>
+      <Menu />
+      <Box style={{ marginLeft: 160, marginTop: 90 }}
+        sx={{
+          height: 500,
+
+          width: '100%',
+          '& .actions': {
+            color: 'text.secondary',
+          },
+          '& .textPrimary': {
+            color: 'text.primary',
+          },
         }}
-        componentsProps={{
-          toolbar: { apiRef },
-        }}
-      />
-    </Box>
+      >
+
+        <DataGridPro
+          rows={rows}
+          columns={columns}
+          apiRef={apiRef}
+          editMode="row"
+          onRowEditStart={handleRowEditStart}
+          onRowEditStop={handleRowEditStop}
+          onCellFocusOut={handleCellFocusOut}
+          components={{
+            Toolbar: EditToolbar,
+          }}
+          componentsProps={{
+            toolbar: { apiRef },
+          }}
+        />
+      </Box>
     </>
   );
 }

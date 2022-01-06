@@ -1,7 +1,12 @@
 import logo from './logo.png'
-import { AppBar, Toolbar, Typography, makeStyles, Button, MenuItem } from "@material-ui/core"
+import { AppBar, Toolbar, Typography, makeStyles, Button } from "@material-ui/core"
 import { Link } from "react-router-dom";
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import './header.css'
+import React from 'react';
 
 
 
@@ -54,6 +59,7 @@ function gotologin(){
 }
 
 function Header() {
+     const [showmenu,setshowmenu] = React.useState(false)
   const { header, logoStyle, logoImg, toolbar, title, menuButton } = useStyles()
   const displayTitle = () => {
     return <Toolbar className={toolbar}>
@@ -79,11 +85,16 @@ function Header() {
     <AppBar className={header}><Toolbar className={toolbar}>
     {AspireLogo}
    {localStorage.getItem("username") !==null?
-   <div className={menuButton}>
-       <>{localStorage.username}</>
-       
-   <Button>MyProfile</Button>
-   <Button onClick={()=>{gotologin()}}>Logout</Button>
+   <div className={menuButton} id="container">
+     <Button className="dropbtn" onClick={()=>{setshowmenu(true)}}>{localStorage.username}</Button>
+     {showmenu &&
+      <div className="dropdown">
+      <ul>
+      <li><a> Myprofile</a></li>
+        <li><a onClick={()=>{gotologin()}} style={{"textDecoration":"none"}}>Logout</a></li>
+      </ul>
+    </div>
+     }
   </div>:<div></div>
    }
   </Toolbar></AppBar>
