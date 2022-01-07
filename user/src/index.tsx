@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Routing from  './components/common/routing/routing'
-import HomePage from '../src/components/pages/homepage/homepage'
+import HomePageContainer from '../src/components/pages/homepage/homepagecontainer'
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
-    <HomePage/>
+    <HomePageContainer/>
   </React.StrictMode>
   ,
   document.getElementById('root')

@@ -15,16 +15,18 @@ import purple from '@material-ui/core/colors/purple';
 type stateprop = {
     Department: string,
     Category: string,
-    Amount:Number
+    Amount: number,
+    selectedFile: any,
+    Date: any
 }
 const theme = createMuiTheme({
     palette: {
-      primary: purple,
-      secondary:lightgrey,
+        primary: purple,
+        secondary: lightgrey,
     }
-          
-    
-  })
+
+
+})
 
 export default class HomePage extends React.Component<{}, stateprop> {
     constructor(props: any) {
@@ -32,7 +34,9 @@ export default class HomePage extends React.Component<{}, stateprop> {
         this.state = {
             Department: "",
             Category: "",
-            Amount:0
+            Amount: 0,
+            selectedFile: null,
+            Date: ""
         }
 
     }
@@ -43,24 +47,51 @@ export default class HomePage extends React.Component<{}, stateprop> {
         })
     }
 
-    HandleCategory=(event:React.ChangeEvent<HTMLSelectElement>)=>{
+    HandleCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({
-            Category:event.target.value
+            Category: event.target.value
+        })
+
+    }
+
+    HandleAmount = (e: any) => {
+        this.setState({
+            Amount: e.target.value
+        })
+    }
+    OnFileChange = (event: any) => {
+
+        this.setState({ selectedFile: event.target.files[0] });
+        console.log(this.state.selectedFile)
+    };
+
+    HandleSubmit = (e:any) => {
+        e.preventDefault()
+        let submitteddata = {
+            Department: this.state.Department,
+            Category: this.state.Category,
+            Amount: this.state.Amount,
+            selectedfile: this.state.selectedFile
+        }
+
+        console.log(submitteddata)
+    }
+
+    HandleDate = (e: any) => {
+        e.preventDefault()
+        this.setState({
+            Date: e.target.value
         })
     }
 
-    HandleAmount=(e:any)=>{
-        this.setState({
-            Amount:e.target.value
-        })
-    }
+
 
 
 
     render() {
         console.log(this.state.Department)
         console.log(this.state.Amount)
-
+        console.log(this.state.Date)
         const DepartmentData = Departmentdata.map((data) => {
             return data.Department
         })
@@ -68,8 +99,10 @@ export default class HomePage extends React.Component<{}, stateprop> {
             <>
                 <Header />
                 <Box sx={{ minWidth: 120 }} style={{ "marginTop": "15%" }}>
-                   
-                    <form>
+
+                    <form
+                    onSubmit={this.HandleSubmit}
+                    >
                         <FormControl style={{ "width": "20%" }}>
                             <InputLabel id="demo-simple-select-label">Department</InputLabel>
                             <Select label="Select" value={this.state.Department} onChange={(event: any) => this.HandleDepartment(event)}>
@@ -82,14 +115,20 @@ export default class HomePage extends React.Component<{}, stateprop> {
                                 {Categorydata.map((data: any) => { return <MenuItem value={data.Category}>{data.Category}</MenuItem> })}
                             </Select>
                         </FormControl>
-                    <TextField onChange={this.HandleAmount} style={{"width":"20%"}} label="Amount" value={this.state.Amount}   inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
-                    <ThemeProvider theme={theme}><FormControl style={{"width":"20%" }}> 
-                 <TextField  type="file" label="File Upload"  variant="outlined" focused color='secondary'/> </FormControl> </ThemeProvider>
-                  
-               <ThemeProvider theme={theme}>  <FormControl style={{"width":"15%" }}>      <TextField type="date" label="DD/MM/YYYY" focused color='secondary'/></FormControl> </ThemeProvider>  
-              
-                    </form>
+                        <TextField onChange={this.HandleAmount} type="number" style={{ "width": "20%" }} label="Amount" value={this.state.Amount} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} />
+                        <ThemeProvider theme={theme}><FormControl style={{ "width": "20%" }}>
+                            <TextField type="file" label="File Upload" variant="outlined" onChange={this.OnFileChange} focused color='secondary' />
+                        </FormControl>
+                        </ThemeProvider>
+                        <ThemeProvider theme={theme}>
+                            <FormControl style={{ "width": "15%" }}>
+                                <TextField type="date" label="DD/MM/YYYY" focused color='secondary' onChange={this.HandleDate} />
+                            </FormControl>
+                        </ThemeProvider>
                    
+                     
+                    </form>
+
                 </Box>
             </>
         )
