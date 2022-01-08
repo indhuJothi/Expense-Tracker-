@@ -16,6 +16,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { GridToolbarContainer } from '@mui/x-data-grid-pro'
 import Box from '@mui/material/Box'
 import AddDetails from "./adddetails";
+import Close from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
 
 
 type rowprops = {
@@ -438,17 +440,19 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
           }}
         >
 
-
-          <TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }}>
-
+           
+          <TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }} >
+         
           {rowskeys.includes("Category") && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Category</button>}
           {(!rowskeys.includes("EmployeeName")&& rowskeys.includes("Role"))&& <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Role</button>}
           {(rowskeys.includes("Department") && !rowskeys.includes("EmployeeName") ) && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Department</button>}
-            {rowskeys.includes("EmployeeName") && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Employee</button>}
+            {rowskeys.includes("EmployeeName") &&(  <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Employee</button>)}
+           <IconButton onClick={()=>{window.location.replace("/adminpage")}} style={{"marginLeft":"94%"}}><Close /></IconButton> 
             <Table>
               {this.createtable(rows, columns)}
 
             </Table>
+           
             {this.state.showform && <FormDialog save={this.save} close={this.closepopup} />}
           </TableContainer>
           {this.state.delete && <ConfirmDelete delete={this.showdeletealert} close={this.closepopup} deletedata={JSON.parse(localStorage.getItem("willdelete") || "{}")} />}

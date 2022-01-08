@@ -4,12 +4,15 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Routing from  './components/common/routing/routing'
 import HomePageContainer from '../src/components/pages/homepage/homepagecontainer'
+import EmployeeRoute from '../src/components/common/routing/employeeroute'
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
-    <HomePageContainer/>
+    {/* <HomePageContainer/> */}
+    <EmployeeRoute/>
+
   </React.StrictMode>
   ,
   document.getElementById('root')

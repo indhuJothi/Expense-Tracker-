@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import './header.css'
 import React from 'react';
-
+import Routing from '../routing/routing'
 
 
 const useStyles = makeStyles(() => ({
@@ -86,11 +86,12 @@ function Header() {
     {AspireLogo}
    {localStorage.getItem("username") !==null?
    <div className={menuButton} id="container">
-     <Button className="dropbtn" onClick={()=>{setshowmenu(true)}}>{localStorage.username}</Button>
+     <Button className="dropbtn" onClick={()=>{setshowmenu(true)}} style={{"textTransform": "lowercase"}}>{localStorage.getItem("username")}</Button>
      {showmenu &&
       <div className="dropdown">
       <ul>
-      <li><a> Myprofile</a></li>
+      {localStorage.getItem("role")==="Admin" && <li><a href='/adminpage' style={{"textDecoration":"none"}}
+      >{localStorage.role}</a></li>}
         <li><a onClick={()=>{gotologin()}} style={{"textDecoration":"none"}}>Logout</a></li>
       </ul>
     </div>

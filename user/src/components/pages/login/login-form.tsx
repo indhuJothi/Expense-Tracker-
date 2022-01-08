@@ -34,8 +34,13 @@ class Loginform extends React.Component<{}, IMyComponentState>{
     })
 
     if (name.length > 0) {
-      name.map((data) => { return localStorage.setItem("username", data.Username) })
-      window.location.replace('/department')
+      name.map((data) => { 
+        return (
+          localStorage.setItem("username", data.Username),
+          localStorage.setItem("role",data.Role)
+          )
+      })
+      window.location.replace('/homepage')
 
     }
     else {
