@@ -8,6 +8,7 @@ import EmployeeTable from '../../pages/employee/employee'
 import CategoryTable from '../../pages/category/category'
 import DepartmentTable from '../../pages/department/department'
 import Roletable from '../../pages/role/role'
+import ManagerPage from '../../pages/manager/manager'
 
 export default class EmployeeRoute extends React.Component{
     render(){
@@ -18,6 +19,7 @@ export default class EmployeeRoute extends React.Component{
                 <Route path='/' element={<Loginform />}></Route>
                 <Route path='/homepage' element={<HomePageContainer />}></Route>
                 <Route path='/adminpage' element={<AdminPage />}></Route>
+                <Route path='/manager' element={<ManagerPage/>}/>
                 <Route path='/employee' element={<EmployeeTable />} ></Route>
                      <Route path='/category' element={<CategoryTable />}> </Route>
                      <Route path='/department' element={<DepartmentTable />}></Route>

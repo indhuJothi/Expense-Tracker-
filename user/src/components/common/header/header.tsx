@@ -92,7 +92,12 @@ function Header() {
       <ul>
       {localStorage.getItem("role")==="Admin" && <li><a href='/adminpage' style={{"textDecoration":"none"}}
       >{localStorage.role}</a></li>}
-        <li><a onClick={()=>{gotologin()}} style={{"textDecoration":"none"}}>Logout</a></li>
+      {localStorage.getItem("role")==="Manager" && <li>
+        <a href='/manager' style={{"textDecoration":"none"}}
+      >
+        <Button>{localStorage.role}</Button> 
+      </a></li>}
+        <li><a onClick={()=>{gotologin()}} style={{"textDecoration":"none"}}><Button>Logout</Button></a></li>
       </ul>
     </div>
      }

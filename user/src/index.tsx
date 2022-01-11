@@ -5,13 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import Routing from  './components/common/routing/routing'
 import HomePageContainer from '../src/components/pages/homepage/homepagecontainer'
 import EmployeeRoute from '../src/components/common/routing/employeeroute'
-
+import ManagerPage from '../src/components/pages/manager/manager';
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Routing/> */}
     {/* <HomePageContainer/> */}
     <EmployeeRoute/>
+    {/* <ManagerPage/> */}
 
   </React.StrictMode>
   ,

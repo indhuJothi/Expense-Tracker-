@@ -9,12 +9,14 @@ import { Button, FormControl, TextField, ThemeProvider } from '@mui/material';
 import Header from '../../common/header/header';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import BasicTable from '../../common/table/table';
 
 
 
 type stateprop = {
     formValues: any,
-    totalAmount: any
+    totalAmount: any,
+    showTable:Boolean
 }
 
 class HomePageContainer extends React.Component<{}, stateprop> {
@@ -22,6 +24,7 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         super(props)
         this.state = {
             totalAmount: null,
+            showTable:false,
             formValues: [{ Department: "", Category: "", Amount: 0, FileUpload: null, Date: "" }]
         };
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -52,7 +55,26 @@ class HomePageContainer extends React.Component<{}, stateprop> {
 
     handleSubmit(event: any) {
         event.preventDefault();
-        localStorage.setItem("reimbursedetails", JSON.stringify(this.state.formValues))
+        let formValues = this.state.formValues
+        let reimburseddetails=JSON.parse(localStorage.getItem("reimbursedetails")||"[]")
+        let reimbursedetails
+        this.state.formValues.map((data:any)=>{
+            reimbursedetails={
+                Username:localStorage.username,
+                Date:data.Date,
+                Department:data.Department,
+                FileUpload:data.FileUpload,
+                Amount:data.Amount,
+                Category:data.Category
+
+            }
+            reimburseddetails.push(reimbursedetails) 
+        }
+       
+        )
+        
+        console.log(formValues)
+        localStorage.setItem("reimbursedetails", JSON.stringify(reimburseddetails))
     }
 
 
@@ -61,7 +83,11 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         return (
             <>
                 <Header />
-                <form onSubmit={this.handleSubmit} style={{ "marginTop": "10%" }}>
+                <Button variant='contained' onClick={()=>{this.setState({showTable:!this.state.showTable})}} style={{marginTop:100}}>My Requests</Button>
+                {this.state.showTable && <p>check</p>
+                // <BasicTable/>
+                }
+                <form onSubmit={this.handleSubmit} style={{ "marginTop": "5%" }}>
                     {this.state.formValues.map((element: any, index: any) => (
                         <div className="form-inline" key={index} style={{ "marginBottom": "30px" }}>
                             <FormControl style={{ "width": "20%" }}>
