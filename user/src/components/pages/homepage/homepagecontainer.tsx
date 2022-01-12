@@ -10,6 +10,7 @@ import Header from '../../common/header/header';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BasicTable from '../../common/table/table';
+import ManagerTable from '../../common/table/managertable/manager-table';
 
 
 
@@ -18,6 +19,29 @@ type stateprop = {
     totalAmount: any,
     showTable:Boolean
 }
+
+let columns=[
+    {
+        heading:"Username",
+        property:"Username"
+    },
+    {
+        heading:"Department",
+        property:"Department"
+    },
+    {
+        heading:"Category",
+        property:"Category"
+    },
+    {
+        heading:"Expense",
+        property:"Amount"
+    },
+    {
+        heading:"Approval/Rejection",
+        property:"Result"
+    }
+]
 
 class HomePageContainer extends React.Component<{}, stateprop> {
     constructor(props: any) {
@@ -77,16 +101,40 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         localStorage.setItem("reimbursedetails", JSON.stringify(reimburseddetails))
     }
 
+  result(data:any){
+      console.log(data)
+  }
+
 
     render() {
-
+        let rowsproperty = JSON.parse(localStorage.getItem("approved")||"[]")
+        console.log(rowsproperty)
+        let rows: { Username:string,Department:string,Category:string,Amount:string }[]=[]
+        rowsproperty.map((data:any)=>{
+            if(localStorage.username===data.Username){
+            let  rowdata={
+                Username:data.Username,
+                Department:data.Department,
+                Category:data.Category,
+                Amount:data.Amount,
+                Result:data.Result
+            }
+            rows.push(rowdata)
+        }
+        
+        })
         return (
             <>
                 <Header />
                 <Button variant='contained' onClick={()=>{this.setState({showTable:!this.state.showTable})}} style={{marginTop:100}}>My Requests</Button>
-                {this.state.showTable && <p>check</p>
-                // <BasicTable/>
-                }
+                {this.state.showTable ? <>  <Button style={{marginTop:100}} variant='contained' onClick={()=>{this.setState({showTable:!this.state.showTable})}}>Reimburse</Button> 
+
+                <ManagerTable approve={this.result} rows={rows} columns={columns}/>
+               
+                </>
+
+
+                :
                 <form onSubmit={this.handleSubmit} style={{ "marginTop": "5%" }}>
                     {this.state.formValues.map((element: any, index: any) => (
                         <div className="form-inline" key={index} style={{ "marginBottom": "30px" }}>
@@ -120,11 +168,13 @@ class HomePageContainer extends React.Component<{}, stateprop> {
                         <Button variant="contained" color="secondary" type="submit">Submit</Button>
 
                     </Box>
-
-                </form>
-                <Box>
+                    <Box>
                     <Button variant="contained" color="secondary" style={{ "marginTop": "20px", "marginLeft": "4px" }} type="button" onClick={() => this.addFormFields()}>Add</Button>
                 </Box>
+                </form>
+                     
+               
+           }
             </>
         );
     }

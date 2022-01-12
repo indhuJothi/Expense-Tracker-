@@ -22,29 +22,25 @@ type rowprops = {
   rows: {
     heading: string | null,
     property: string | null
-  }[],
-
-    approve:(value:Object)=>void
- 
-
+  }[]
 }
 
 type columnprops = {
   columns:
   {
     id: string,
-    Category?: string,
+    Category?: string |any,
     MinimumLimit?: string,
     Role?: string
-    Department?: string,
+    Department?: string|any,
     TotalAMount?: string,
     EmployeeName?: string,
     Email?: string,
-    Username?: string,
+    Username?: string|any,
     Password?: string,
-    Amount?:string,
-    Date?:string,
-    FileUpload?:any
+    Amount?: string|any,
+    Date?: string,
+    FileUpload?: any
 
   }[]
 }
@@ -56,8 +52,8 @@ type stateprop = {
   delete: boolean,
   adddetails: boolean
 }
-class BasicTable extends React.Component<rowprops & columnprops , stateprop> {
-  constructor(props: rowprops & columnprops ) {
+class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
+  constructor(props: rowprops & columnprops) {
     super(props)
 
     this.state = {
@@ -274,17 +270,12 @@ class BasicTable extends React.Component<rowprops & columnprops , stateprop> {
         else if (row.property === "Delete") {
           columnarray.push(<TableCell style={{ "width": "2px", "marginLeft": "10px" }}><Delete onClick={(e) => { this.deletedetails(e, data) }}></Delete></TableCell>)
         }
-        
-        else if(row.property==="FileUpload"){
+
+        else if (row.property === "FileUpload") {
           columnarray.push(<TableCell typeof="file"><a href={data[row.property]}>Download</a></TableCell>)
-          }
-          else if(row.property==="Approval"){
-            columnarray.push(<TableCell><Button onClick={()=>this.props.approve(data)}>Approve</Button></TableCell>)
-          }
-          else if(row.property==="Rejection"){
-            columnarray.push(<TableCell><Button style={{"color":"red"}}>Reject</Button></TableCell>)
-          }
-        
+        }
+
+
         else {
           columnarray.push(<TableCell style={{ "width": "2px", "marginLeft": "10px" }} key={data.id}>{data[row.property]}</TableCell>)
         }
@@ -438,33 +429,14 @@ class BasicTable extends React.Component<rowprops & columnprops , stateprop> {
 
     }
     localStorage.setItem("currentcolumns", JSON.stringify(columns))
-    
+
     const rowskeys = Object.keys(Object.assign({}, ...columns))
-    const approve = this.props.approve
+
     return (
       <>
-      {rowskeys.includes("FileUpload")?  <Box style={{ marginLeft: 50, marginTop: 80 }}
-          sx={{
-            height: 500,
 
-            width: '100%',
-            '& .actions': {
-              color: 'text.secondary',
-            },
-            '& .textPrimary': {
-              color: 'text.primary',
-            },
-          }}
-        >
-            <TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }} >
-            <Table>
-              {this.createtable(rows, columns)}
 
-            </Table>
-            </TableContainer>
-
-        </Box>:
-       <Box style={{ marginLeft: 160, marginTop: 90 }}
+        <Box style={{ marginLeft: 160, marginTop: 90 }}
           sx={{
             height: 500,
 
@@ -478,24 +450,24 @@ class BasicTable extends React.Component<rowprops & columnprops , stateprop> {
           }}
         >
 
-           
+
           <TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }} >
-         
-          {(rowskeys.includes("Category")&& !rowskeys.includes("Username")) && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Category</button>}
-          {(!(rowskeys.includes("EmployeeName")||rowskeys.includes("Username"))&& rowskeys.includes("Role"))&& <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Role</button>}
-          {(rowskeys.includes("Department") && !(rowskeys.includes("EmployeeName") ||rowskeys.includes("Username")) ) && <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Department</button>}
-            {rowskeys.includes("EmployeeName") &&(  <button onClick={() => { this.adddetails() }} style={{"width":"100px"}} >Add Employee</button>)}
-          { !rowskeys.includes("FileUpload")&&<IconButton onClick={()=>{window.location.replace("/adminpage")}} style={{"marginLeft":"94%"}}><Close /></IconButton> }
+
+            {(rowskeys.includes("Category") && !rowskeys.includes("Username")) && <button onClick={() => { this.adddetails() }} style={{ "width": "100px" }} >Add Category</button>}
+            {(!(rowskeys.includes("EmployeeName") || rowskeys.includes("Username")) && rowskeys.includes("Role")) && <button onClick={() => { this.adddetails() }} style={{ "width": "100px" }} >Add Role</button>}
+            {(rowskeys.includes("Department") && !(rowskeys.includes("EmployeeName") || rowskeys.includes("Username"))) && <button onClick={() => { this.adddetails() }} style={{ "width": "100px" }} >Add Department</button>}
+            {rowskeys.includes("EmployeeName") && (<button onClick={() => { this.adddetails() }} style={{ "width": "100px" }} >Add Employee</button>)}
+            {!rowskeys.includes("FileUpload") && <IconButton onClick={() => { window.location.replace("/adminpage") }} style={{ "marginLeft": "94%" }}><Close /></IconButton>}
             <Table>
               {this.createtable(rows, columns)}
 
             </Table>
-           
+
             {this.state.showform && <FormDialog save={this.save} close={this.closepopup} />}
           </TableContainer>
           {this.state.delete && <ConfirmDelete delete={this.showdeletealert} close={this.closepopup} deletedata={JSON.parse(localStorage.getItem("willdelete") || "{}")} />}
           {this.state.adddetails && <AddDetails close={this.closepopup} />}
-        </Box>}
+        </Box>
       </>
 
     );
