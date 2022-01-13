@@ -28,7 +28,7 @@ type rowprops = {
 type columnprops = {
   columns:
   {
-    id: string,
+    id?: string,
     Category?: string |any,
     MinimumLimit?: string,
     Role?: string
@@ -40,7 +40,9 @@ type columnprops = {
     Password?: string,
     Amount?: string|any,
     Date?: string,
-    FileUpload?: any
+    FileUpload?: any,
+    Result?:any
+
 
   }[]
 }
@@ -435,7 +437,31 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
     return (
       <>
 
+        {
+          rowskeys.includes("Result")?
+  <Box style={{ marginLeft: 50, marginTop: 90 }}
+  sx={{
+    height: 500,
 
+    width: '100%',
+    '& .actions': {
+      color: 'text.secondary',
+    },
+    '& .textPrimary': {
+      color: 'text.primary',
+    },
+  }}
+>
+<TableContainer component={Paper} style={{ "width": "90%", marginTop: 30 }} >
+
+            <Table>
+              {this.createtable(rows, columns)}
+
+            </Table>
+  </TableContainer>
+
+</Box>:
+        
         <Box style={{ marginLeft: 160, marginTop: 90 }}
           sx={{
             height: 500,
@@ -467,7 +493,7 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
           </TableContainer>
           {this.state.delete && <ConfirmDelete delete={this.showdeletealert} close={this.closepopup} deletedata={JSON.parse(localStorage.getItem("willdelete") || "{}")} />}
           {this.state.adddetails && <AddDetails close={this.closepopup} />}
-        </Box>
+        </Box>}
       </>
 
     );

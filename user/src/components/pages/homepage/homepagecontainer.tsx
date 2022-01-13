@@ -108,8 +108,10 @@ class HomePageContainer extends React.Component<{}, stateprop> {
 
     render() {
         let rowsproperty = JSON.parse(localStorage.getItem("approved")||"[]")
+        let reimbursedetails = JSON.parse(localStorage.getItem("reimbursedetails")||"[]")
         console.log(rowsproperty)
         let rows: { Username:string,Department:string,Category:string,Amount:string }[]=[]
+        if(localStorage.getItem("approved")){
         rowsproperty.map((data:any)=>{
             if(localStorage.username===data.Username){
             let  rowdata={
@@ -123,13 +125,32 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         }
         
         })
+    }
+    else{
+        reimbursedetails.map((data:any)=>{
+            if(localStorage.username===data.Username){
+            let  rowdata={
+                Username:data.Username,
+                Department:data.Department,
+                Category:data.Category,
+                Amount:data.Amount,
+                Result:"Pending"
+            }
+            rows.push(rowdata)
+        }
+        
+        })
+
+    }
+       
+
         return (
             <>
                 <Header />
                 <Button variant='contained' onClick={()=>{this.setState({showTable:!this.state.showTable})}} style={{marginTop:100}}>My Requests</Button>
                 {this.state.showTable ? <>  <Button style={{marginTop:100}} variant='contained' onClick={()=>{this.setState({showTable:!this.state.showTable})}}>Reimburse</Button> 
 
-                <ManagerTable approve={this.result} rows={rows} columns={columns}/>
+                <BasicTable  rows={columns} columns={rows}/>
                
                 </>
 

@@ -30,7 +30,8 @@ type columnprops={
 }
 
 type functionprop={
-    approve:(data:any)=>void
+    approve:(data:any)=>void,
+    reject:(data:any)=>void
 }
 
 export default class ManagerTable extends React.Component<rowprops & columnprops & functionprop, {}>{
@@ -62,7 +63,7 @@ export default class ManagerTable extends React.Component<rowprops & columnprops
                   rowarray.push(<TableCell><Button onClick={()=>{this.props.approve(data)}}>Approve</Button></TableCell>)
                 }
                 else if(column.property==="Rejection"){
-                rowarray.push(<TableCell><Button style={{"color":"red"}}>Reject</Button></TableCell>)
+                rowarray.push(<TableCell><Button onClick={()=>{this.props.reject(data)}} style={{"color":"red"}}>Reject</Button></TableCell>)
                 }
              
               else {
