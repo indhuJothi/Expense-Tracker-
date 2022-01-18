@@ -75,6 +75,7 @@ export default class HomePage extends React.Component<{}, stateprop> {
         }
 
         console.log(submitteddata)
+        window.location.reload()
     }
 
     HandleDate = (e: any) => {

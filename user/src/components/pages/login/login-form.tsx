@@ -34,11 +34,11 @@ class Loginform extends React.Component<{}, IMyComponentState>{
     })
 
     if (name.length > 0) {
-      name.map((data) => { 
+      name.map((data) => {
         return (
           localStorage.setItem("username", data.Username),
-          localStorage.setItem("role",data.Role)
-          )
+          localStorage.setItem("role", data.Role)
+        )
       })
       window.location.replace('/homepage')
 
@@ -69,9 +69,15 @@ class Loginform extends React.Component<{}, IMyComponentState>{
         <Paper elevation={10} style={paperStyle}>
           <h2>Sign In</h2>
           <form onSubmit={(e) => this.submit(e)}>
-
-            <TextField name='username' required
-              style={{ marginBottom: 20 }} variant="outlined" color="primary" label="username" value={this.state.username} onChange={(e) => { this.setState({ username: e.target.value }) }}></TextField>
+            <TextField name='username'
+              required
+              style={{ marginBottom: 20 }}
+              variant="outlined"
+              color="primary"
+              label="username"
+              value={this.state.username}
+              onChange={(e) => { this.setState({ username: e.target.value }) }}>
+            </TextField>
             <TextField type="password"
               name='password'
               label='password'
