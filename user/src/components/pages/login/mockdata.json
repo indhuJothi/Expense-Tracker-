@@ -14,7 +14,7 @@
     "Department" : "Testing",
     "Role" : "Manager",
     "Email" : "charanya@gmail.com",
-    "Username" : "charanya.Ramanan",
+    "Username" : "charanya.ramanan",
     "Password" : "charanya@1234"
 
 },
@@ -24,7 +24,7 @@
     "Department" : "Infrastructure",
     "Role" : "Admin",
     "Email" : "dharshini@gmail.com",
-    "Username" : "Dharshini.gnana",
+    "Username" : "dharshini.gnana",
     "Password" : "dharshini@1234"
 }
 ]

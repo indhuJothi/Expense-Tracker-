@@ -89,7 +89,8 @@ class HomePageContainer extends React.Component<{}, stateprop> {
                 Department:data.Department,
                 FileUpload:data.FileUpload,
                 Amount:data.Amount,
-                Category:data.Category
+                Category:data.Category,
+                Result:"Pending"
 
             }
             reimburseddetails.push(reimbursedetails) 

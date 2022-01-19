@@ -53,8 +53,9 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
 
         let reimbursedata = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
         let approved: { Username: any; Category: any; Date: any, Department: any; Amount: any; Result: string }[] = []
-        let approveRequest: { Username: any; Category: any; Department: any; Amount: any; Date: any; Result: string }
+        let approveRequest: { Username: any; Category: any; FileUpload: any; Department: any; Amount: any; Date: any; Result: string }
         let approvedDetails = JSON.parse(localStorage.getItem("approved") || "[]")
+
         reimbursedata.map((res: any) => {
             if ((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category)) {
 
@@ -64,104 +65,57 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
                     Department: data.Department,
                     Amount: data.Amount,
                     Date: data.Date,
+                    FileUpload: data.FileUpload,
                     Result: "Approved"
                 }
-                if(approvedDetails.length>0){
-                approvedDetails.map((approveres:any)=>{
-                    if(!(data.Username===approveres.Username && data.Category===approveres.Category && data.Date===approveres.Date)){
-                        approvedDetails.push(approveRequest)
-                        }
-                })}
-                else{
-                approvedDetails.push(approveRequest)}
-                let filtered = reimbursedata.filter((res: any) => {
-                    return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
-                })
-                localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
+                approvedDetails.push(approveRequest)
             }
-            else {
-                
-                approveRequest = {
-                    Username: res.Username,
-                    Category: res.Category,
-                    Department: res.Department,
-                    Amount: res.Amount,
-                    Date: res.Date,
-                    Result: "Pending"
-                }
-                approvedDetails.map((data:any)=>{
-                    if(!(data.Username===res.Username && data.Category===res.Category && data.Date===res.Date)){
-                    approvedDetails.push(approveRequest)
-                    }
-                     })
-                    
-                let filtered = reimbursedata.filter((res: any) => {
-                    return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
-                })
-                localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
-            
-        }
-
+            let filtered = reimbursedata.filter((res: any) => {
+                return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
+            })
+            localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
         })
-
-        // }
-
         localStorage.setItem("approved", JSON.stringify(approvedDetails))
         window.location.reload()
     }
 
     reject(data: any) {
 
-        // let approvedData = JSON.parse(localStorage.getItem("approved") || "[]")
-        // let reimbursedata = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
-        // let rejected: { Username: any; Category: any; Date: any, Department: any; Amount: any; Result: string }[] = []
-        // let rejectedRequest
+        let reimbursedata = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
+        let approved: { Username: any; Category: any; Date: any, Department: any; Amount: any; Result: string }[] = []
+        let rejectRequest: { Username: any; Category: any; FileUpload: any; Department: any; Amount: any; Date: any; Result: string }
+        let approvedDetails = JSON.parse(localStorage.getItem("approved") || "[]")
+
+        reimbursedata.map((res: any) => {
+            if ((data.Username === res.Username && data.Category === res.Category && data.Date === res.Date)) {
+                rejectRequest = {
+                    Username: data.Username,
+                    Category: data.Category,
+                    Department: data.Department,
+                    Amount: data.Amount,
+                    Date: data.Date,
+                    FileUpload: data.FileUpload,
+                    Result: "Rejected"
+                }
+                approvedDetails.push(rejectRequest)
+            }
 
 
-        // reimbursedata.map((res: any) => {
-        //     if ((data.Username === res.Username && data.Date == res.Date && data.Category === res.Category)) {
-
-        //         rejectedRequest = {
-        //             Username: data.Username,
-        //             Category: data.Category,
-        //             Department: data.Department,
-        //             Amount: data.Amount,
-        //             Date: data.Date,
-        //             Result: "Rejected"
-        //         }
-        //         approvedData.push(rejectedRequest)
-        //         let filtered = reimbursedata.filter((res: any) => {
-        //             return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
-        //         })
-        //         localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
-        //     }
-
-        //     else {
-        //         console.log(res)
-        //         console.log(data)
-        //         rejectedRequest = {
-        //             Username: res.Username,
-        //             Category: res.Category,
-        //             Department: res.Department,
-        //             Amount: res.Amount,
-        //             Date: res.Date,
-        //             Result: "Pending"
-        //         }
-        //         approvedData.push(rejectedRequest)
-        //         let filtered = reimbursedata.filter((res: any) => {
-        //             return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
-        //         })
-        //         localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
-
-        //     }
-
-        // })
-
-        // // }
+        })
 
 
-        // localStorage.setItem("approved", JSON.stringify(approvedData))
-        // window.location.reload()
+
+
+
+        let filtered = reimbursedata.filter((res: any) => {
+            return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
+        })
+        localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
+
+
+
+        localStorage.setItem("approved", JSON.stringify(approvedDetails))
+        window.location.reload()
 
     }
 
@@ -179,12 +133,12 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
                         showTable: true
                     })
                 }} variant="contained" style={{ marginTop: 120, marginLeft: 40 }}>My Approvals</Button>
-                {this.state.showTable &&
-                    <>
-                        <Button variant="contained" onClick={() => window.location.replace('/homepage')} style={{ marginTop: 120, marginLeft: 40 }}>Homepage</Button>
-                        <ManagerTable approve={this.approve} reject={this.reject} rows={rows} columns={columns} />
-                    </>
-                }
+                {/* {this.state.showTable && */}
+                <>
+                    <Button variant="contained" onClick={() => window.location.replace('/homepage')} style={{ marginTop: 120, marginLeft: 40 }}>Homepage</Button>
+                    <ManagerTable approve={this.approve} reject={this.reject} rows={rows} columns={columns} />
+                </>
+                {/* } */}
             </>
 
         )

@@ -7,6 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from "react";
+import { text } from "stream/consumers";
 
 type functionprop = {
     close: (value: boolean) => void,
@@ -16,6 +17,7 @@ type functionprop = {
 function AddDetails(prop: functionprop) {
 
     const [open, setOpen] = React.useState(true);
+    const [error,setError]= React.useState("")
     const [id, setId] = React.useState("");
     const [Category, setCategory] = React.useState("")
     const [MinimumLimit, setMinimumLimit] = React.useState("")
@@ -230,6 +232,7 @@ function AddDetails(prop: functionprop) {
                         id="EmployeeName"
                         fullWidth
                         variant="standard"
+                        required
                         onChange={(e) => { setEmployeeName(e.target.value) }}
                         value={EmployeeName}
                     />
@@ -239,6 +242,7 @@ function AddDetails(prop: functionprop) {
                         id="Role"
                         label="Role"
                         fullWidth
+                        required
                         onChange={(e) => { setRole(e.target.value) }}
                         variant="standard"
 
@@ -252,6 +256,7 @@ function AddDetails(prop: functionprop) {
                         fullWidth
                         onChange={(e) => { setDepartment(e.target.value) }}
                         variant="standard"
+                        required
                         value={Department}
                     />
                     <TextField
@@ -261,6 +266,8 @@ function AddDetails(prop: functionprop) {
                         id="Email"
                         fullWidth
                         variant="standard"
+                        required
+                        type="email"
                         onChange={(e) => { setEmail(e.target.value) }}
                         value={Email}
                     />
@@ -273,6 +280,7 @@ function AddDetails(prop: functionprop) {
                         variant="standard"
                         onChange={(e) => { setUsename(e.target.value) }}
                         value={Username}
+                        required
                     />
                     <TextField
                         autoFocus
@@ -281,6 +289,7 @@ function AddDetails(prop: functionprop) {
                         id="Password"
                         fullWidth
                         variant="standard"
+                        required
                         onChange={(e) => { setPassword(e.target.value) }}
                         value={Password}
                     />
@@ -297,6 +306,7 @@ function AddDetails(prop: functionprop) {
                             fullWidth
                             onChange={(e) => { setDepartment(e.target.value) }}
                             value={Department}
+                            required
                         />
                         <TextField
                             autoFocus
@@ -305,7 +315,11 @@ function AddDetails(prop: functionprop) {
                             id="TotalAmount"
                             fullWidth
                             onChange={(e) => { setTotalAmount(e.target.value) }}
+                            required
                             value={TotalAmount}
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                            helperText={parseInt(TotalAmount)>=0?"":"Please fill numbers only"}
+                        
                         />
                       </>
                 }
@@ -320,17 +334,20 @@ function AddDetails(prop: functionprop) {
                             fullWidth
                             onChange={(e) => { setCategory(e.target.value) }}
                             value={Category}
+                            required
                         />
                         <TextField
                             autoFocus
                             margin='dense'
                             label="MinimumLimit"
                             fullWidth
+                            // type="number"
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             id="Minimumlimit"
                             value={MinimumLimit}
                             onChange={(e) => { setMinimumLimit(e.target.value) }}
-
+                            required
+                            helperText={parseInt(MinimumLimit)>=0||""?"":"Please fill numbers only"}
                         />
                         </>
                  
@@ -346,6 +363,7 @@ function AddDetails(prop: functionprop) {
                             fullWidth
                             onChange={(e) => { setRole(e.target.value) }}
                             value={Role}
+                            required
                         />
                   </>
                 }
