@@ -1,6 +1,6 @@
-import React from "react";
-import { Route, Navigate,Outlet } from "react-router-dom";
-import Loginform from "../../pages/login/login-form";
+
+import {  Navigate,Outlet } from "react-router-dom";
+
 
 
 export default function PrivateRoute() {
@@ -11,7 +11,7 @@ export default function PrivateRoute() {
   }
 
   export function PreventLogin(){
-     let pathname = window.location.pathname
+   
    return localStorage.getItem("username")===null ? <Outlet/>:<Navigate to="/homepage"/>
          
   }
