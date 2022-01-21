@@ -5,6 +5,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack'
 import CloseIcon from '@material-ui/icons/Close'
+import baseURL from '../../service/api/api'
 
 
 
@@ -28,29 +29,50 @@ class Loginform extends React.Component<{}, IMyComponentState>{
 
   submit(e: any) {
     e.preventDefault()
-    let name = data.filter((data) => {
-      return ((data.Username === this.state.username) && (data.Password === this.state.password))
-
-    })
-
-    if (name.length > 0) {
-      name.map((data) => {
-        return (
-          localStorage.setItem("username", data.Username),
-          localStorage.setItem("role", data.Role)
-        )
-      })
-      window.location.replace('/homepage')
-
+    let userdetails = {
+      username: this.state.username,
+      password: this.state.password
     }
-    else {
-
-      this.setState({
-        showerror: true
+    let res
+    
+    this.loginUser(userdetails)
+      .then((response) => res = response.data)
+      .then((res) => {
+   
+        let token = res.token;
+       
+        if (res !== "error" && res !== "Not found") {
+          localStorage.setItem("authtoken", token)
+          localStorage.setItem("userdetails",JSON.stringify(res.userdetails))
+          window.location.replace('/homepage')
+        }
+        else {
+          this.setState({
+            showerror: true
+          })
+        }
       })
-    }
+
+    
+
+    
+
+ 
 
   }
+
+  loginUser(userdetails: any) {
+
+    let apiUrl = "/expense/login";
+
+    return baseURL.post(apiUrl, userdetails, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+  }
+ 
 
   render() {
 

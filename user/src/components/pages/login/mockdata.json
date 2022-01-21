@@ -26,5 +26,42 @@
     "Email" : "dharshini@gmail.com",
     "Username" : "dharshini.gnana",
     "Password" : "dharshini@1234" 
+},
+{
+    "id":4,
+    "EmployeeName":"Thenarasi",
+    "Department" : "Development",
+    "Role" : "Manager",
+    "Email" : "thenarasi@gmail.com",
+    "Username" : "thenrasi.rajendran",
+    "Password" : "then@1234" 
+},
+{
+    "id":5,
+    "EmployeeName":"Ganansekar",
+    "Department" : "Infrastructure",
+    "Role" : "Manager",
+    "Email" : "gnana@gmail.com",
+    "Username" : "gnana.velmurugan",
+    "Password" : "gnana@1234" 
+},
+{
+    "id":6,
+    "EmployeeName":"Abirami",
+    "Department" : "Testing",
+    "Role" : "Manager",
+    "Email" : "abirmani@gmail.com",
+    "Username" : "abi.gnana",
+    "Password" :"abi@1234" 
+},
+
+{
+    "id":3,
+    "EmployeeName":"Dharshini",
+    "Department" : "Infrastructure",
+    "Role" : "Admin",
+    "Email" : "dharshini@gmail.com",
+    "Username" : "dharshini.gnana",
+    "Password" : "dharshini@1234" 
 }
 ]

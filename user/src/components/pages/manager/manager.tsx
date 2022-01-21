@@ -55,9 +55,9 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
         let approved: { Username: any; Category: any; Date: any, Department: any; Amount: any; Result: string }[] = []
         let approveRequest: { Username: any; Category: any; FileUpload: any; Department: any; Amount: any; Date: any; Result: string }
         let approvedDetails = JSON.parse(localStorage.getItem("approved") || "[]")
-
+        
         reimbursedata.map((res: any) => {
-            if ((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category)) {
+            if ((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category  )) {
 
                 approveRequest = {
                     Username: data.Username,
@@ -121,9 +121,14 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
 
     render() {
 
-
-
-        let rows = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
+        let userdetails = JSON.parse(localStorage.getItem("userdetails")||"{}")
+        let rowsproperty=JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
+        let rows :any[]=[]
+        rowsproperty.map((row:any)=>{
+           if(row.Department===userdetails.Department){
+               rows.push(row)
+           }
+        })
 
         return (
             <>

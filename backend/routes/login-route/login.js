@@ -1,16 +1,17 @@
 let express = require("express");
-let user = require("../../model/login-model");
+let users = require("../../model/login-model");
 let jwt = require("jsonwebtoken");
 
 
 
 
 const login = async (req,res)=>{
-       
+       console.log("I'm working")
         let { username, password } = req.body;
-        let userAuth = await user.findOne({ Username: username });
+        let userAuth = await users.findOne({ Username: username });
+        console.log(userAuth)
         if (userAuth) {
-          await user.findOne({password:password})
+          await users.findOne({Username:username,Password:password})
             .then((result) => {
               if (result) {
                 let token = jwt.sign(
@@ -20,6 +21,9 @@ const login = async (req,res)=>{
                     res.json({
                       token: token,
                       username: userAuth.Username,
+                      role:userAuth.Role,
+                      userdetails:userAuth
+                      
                     });
                     res.status(200);
                   }

@@ -54,13 +54,17 @@ const useStyles = makeStyles(() => ({
 }))
 
 function gotologin(){
-    localStorage.removeItem("username")
+    localStorage.removeItem("userdetails")
+    localStorage.removeItem("authtoken")
+    localStorage.removeItem("categories")
+    localStorage.removeItem("departments")
     window.location.replace('/')
 }
 
 function Header() {
      const [showmenu,setshowmenu] = React.useState(false)
   const { header, logoStyle, logoImg, toolbar, title, menuButton } = useStyles()
+  const userdetails=JSON.parse(localStorage.getItem("userdetails")||"{}")
   const displayTitle = () => {
     return <Toolbar className={toolbar}>
       {AspireLogo}
@@ -84,18 +88,18 @@ function Header() {
   return (
     <AppBar className={header}><Toolbar className={toolbar}>
     {AspireLogo}
-   {localStorage.getItem("username") !==null?
+   {localStorage.getItem("userdetails") !==null?
    <div className={menuButton} id="container">
-     <Button className="dropbtn" onClick={()=>{setshowmenu(true)}} style={{"textTransform": "lowercase"}}>{localStorage.getItem("username")}</Button>
+     <Button className="dropbtn" onClick={()=>{setshowmenu(true)}} style={{"textTransform": "lowercase"}}>{userdetails.Username}</Button>
      {showmenu &&
       <div className="dropdown">
       <ul>
-      {localStorage.getItem("role")==="Admin" && <li><a href='/adminpage' style={{"textDecoration":"none"}}
-      >{localStorage.role}</a></li>}
-      {localStorage.getItem("role")==="Manager" && <li>
+      {userdetails.Role==="Admin" && <li><a href='/adminpage' style={{"textDecoration":"none"}}
+      >{userdetails.Role}</a></li>}
+      {userdetails.Role==="Manager" && <li>
         <a href='/manager' style={{"textDecoration":"none"}}
       >
-        <Button>{localStorage.role}</Button> 
+        <Button>{userdetails.Role}</Button> 
       </a></li>}
         <li><a onClick={()=>{gotologin()}} style={{"textDecoration":"none"}}><Button>Logout</Button></a></li>
       </ul>

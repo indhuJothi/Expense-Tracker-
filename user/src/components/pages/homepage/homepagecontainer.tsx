@@ -11,13 +11,16 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BasicTable from '../../common/table/table';
 import ManagerTable from '../../common/table/managertable/manager-table';
+import baseURL from '../../service/api/api'
 
 
 
 type stateprop = {
     formValues: any,
     totalAmount: any,
-    showTable: Boolean
+    showTable: Boolean,
+    Department:any[],
+    Category:any[]
 }
 
 let columns = [
@@ -43,12 +46,16 @@ let columns = [
     }
 ]
 
+
+
 class HomePageContainer extends React.Component<{}, stateprop> {
     constructor(props: any) {
         super(props)
         this.state = {
             totalAmount: null,
             showTable: false,
+            Department:[],
+            Category:[],
             formValues: [{ Department: "", Category: "", Amount: 0, FileUpload: null, Date: "" }]
         };
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -105,16 +112,51 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         console.log(data)
     }
 
+   
+    componentDidMount(){
+        let department: any[] = []
+        let category:any[]=[]
+        baseURL.get('/expense/departments', {
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": localStorage.getItem("authtoken") || ""
+            }
+        }).then(response => {
+    
+            response.data.map((datas: any) => {
+                department.push(datas.Department)
+            })
+            this.setState({
+                Department:department
+            })
+        })
+    
+        baseURL.get('/expense/categories', {
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": localStorage.getItem("authtoken") || ""
+            }
+        }).then(response => {
+    
+            response.data.map((datas: any) => {
+             category.push(datas.Category)
+            })
+           this.setState({
+               Category:category
+           })
+        })
+       
+      }
 
     render() {
         let rowsproperty = JSON.parse(localStorage.getItem("approved") || "[]")
         let reimbursedetails = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
-        console.log(rowsproperty)
+        let userdetails=JSON.parse(localStorage.getItem("userdetails")||"{}")
         let rows: { Username: string, Department: string, Category: string, Amount: string, Result: string }[] = []
         if (localStorage.getItem("approved")) {
             if (reimbursedetails.length > 0) {
                 reimbursedetails.map((data: any) => {
-                    if (localStorage.username === data.Username) {
+                    if (userdetails.Username === data.Username) {
                         let rowdata = {
                             Username: data.Username,
                             Department: data.Department,
@@ -130,7 +172,7 @@ class HomePageContainer extends React.Component<{}, stateprop> {
             }
             // else{
             rowsproperty.map((data: any) => {
-                if (localStorage.username === data.Username) {
+                if (userdetails.Username === data.Username) {
                     let rowdata = {
                         Username: data.Username,
                         Department: data.Department,
@@ -146,7 +188,7 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         }
         else {
             reimbursedetails.map((data: any) => {
-                if (localStorage.username === data.Username) {
+                if (userdetails.Username === data.Username) {
                     let rowdata = {
                         Username: data.Username,
                         Department: data.Department,
@@ -161,6 +203,7 @@ class HomePageContainer extends React.Component<{}, stateprop> {
             })
 
         }
+
 
 
         return (
@@ -181,12 +224,12 @@ class HomePageContainer extends React.Component<{}, stateprop> {
                                 <FormControl style={{ "width": "20%" }}>
                                     <InputLabel id="demo-simple-select-label">Department</InputLabel>
                                     <Select type="text" name="Department" required value={element.Department || ""} onChange={e => this.handleChange(index, e)} >
-                                        {Departmentdata.map((data: any) => { return <MenuItem value={data.Department}>{data.Department}</MenuItem> })}
+                                        {this.state.Department.map((data: any) => { return <MenuItem value={data}>{data}</MenuItem> })}
                                     </Select></FormControl>
                                 <FormControl style={{ "width": "20%" }}>
                                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                     <Select type="text" required name="Category" value={element.Category || ""} onChange={e => this.handleChange(index, e)} >
-                                        {Categorydata.map((data: any) => { return <MenuItem value={data.Category}>{data.Category}</MenuItem> })}
+                                        {this.state.Category.map((data: any) => { return <MenuItem value={data}>{data}</MenuItem> })}
                                     </Select></FormControl>
                                 <TextField required onChange={e => this.handleChange(index, e)} type="number" style={{ "width": "20%" }} label="Amount" name='Amount' value={element.Amount} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} />
                                 <FormControl style={{ "width": "20%" }}>
