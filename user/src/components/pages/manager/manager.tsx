@@ -3,7 +3,7 @@ import React from 'react'
 import Header from '../../common/header/header'
 import ManagerTable from '../../common/table/managertable/manager-table'
 import BasicTable from '../../common/table/table'
-
+import baseURL from '../../service/api/api'
 let columns = [
     {
         heading: "Username",
@@ -48,7 +48,23 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
             showTable: false
         }
     }
+ componentDidMount(){
+     let userdetails=JSON.parse(localStorage.getItem("userdetails")||"")
+     baseURL.post('/expense/getreimburse',{
+         username:userdetails.Username
+     },{
+        headers: {
+            "Content-Type": "application/json",
+            "access-token": localStorage.getItem("authtoken") || ""
+        }
+     }).then((res:any)=>{
+        
 
+        let data= res.data
+        let datas=data.reimbursedetails
+       localStorage.setItem("reimbursedetails",JSON.stringify(datas))
+     })
+ }
     approve(data: any) {
 
         let reimbursedata = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")

@@ -5,13 +5,13 @@ let jwt = require("jsonwebtoken");
 
 
 
-const login = async (req,res)=>{
+const getreimburse = async (req,res)=>{
        
-        let { username, password } = req.body;
+        let { username } = req.body;
         let userAuth = await users.findOne({ Username: username });
         console.log(userAuth)
         if (userAuth) {
-          await users.findOne({Username:username,Password:password})
+          await users.findOne({Username:username})
             .then((result) => {
               if (result) {
                 let token = jwt.sign(
@@ -20,10 +20,7 @@ const login = async (req,res)=>{
                   (err, token) => {
                     console.log(typeof(token))
                     res.json({
-                      token: token,
-                      username: userAuth.Username,
-                      role:userAuth.Role,
-                      userdetails:userAuth
+                     reimbursedetails:userAuth.Request
                       
                     });
                     res.status(200);
@@ -42,4 +39,4 @@ const login = async (req,res)=>{
       }
 
 
-module.exports = {login}
+module.exports = {getreimburse}

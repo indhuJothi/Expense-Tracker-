@@ -40,7 +40,7 @@ class Loginform extends React.Component<{}, IMyComponentState>{
       .then((res) => {
    
         let token = res.token;
-       
+         console.log(token)
         if (res !== "error" && res !== "Not found") {
           localStorage.setItem("authtoken", token)
           localStorage.setItem("userdetails",JSON.stringify(res.userdetails))

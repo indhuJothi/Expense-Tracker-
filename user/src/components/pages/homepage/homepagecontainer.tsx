@@ -89,11 +89,12 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         let formValues = this.state.formValues
         let reimburseddetails = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
         let reimbursedetails
+        let userdetails = JSON.parse(localStorage.getItem("userdetails")||"{}")
         this.state.formValues.map((data: any) => {
             reimbursedetails = {
-                Username: localStorage.username,
+                Username: userdetails.Username,
                 Date: data.Date,
-                Department: data.Department,
+                Department: userdetails.Department,
                 FileUpload: data.FileUpload,
                 Amount: data.Amount,
                 Category: data.Category,
@@ -104,8 +105,19 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         }
 
         )
+        baseURL.post('/expense/reimbursed',{mydata:reimbursedetails}, {
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": localStorage.getItem("authtoken") || ""
+            }
+          
+        }).then(response => {
+    
+            console.log(response)
+        })
         localStorage.setItem("reimbursedetails", JSON.stringify(reimburseddetails))
-        window.location.reload()
+     
+        // window.location.reload()
     }
 
     result(data: any) {
@@ -149,6 +161,7 @@ class HomePageContainer extends React.Component<{}, stateprop> {
       }
 
     render() {
+        
         let rowsproperty = JSON.parse(localStorage.getItem("approved") || "[]")
         let reimbursedetails = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
         let userdetails=JSON.parse(localStorage.getItem("userdetails")||"{}")
@@ -222,10 +235,12 @@ class HomePageContainer extends React.Component<{}, stateprop> {
                         {this.state.formValues.map((element: any, index: any) => (
                             <div className="form-inline" key={index} style={{ "marginBottom": "30px" }}>
                                 <FormControl style={{ "width": "20%" }}>
-                                    <InputLabel id="demo-simple-select-label">Department</InputLabel>
-                                    <Select type="text" name="Department" required value={element.Department || ""} onChange={e => this.handleChange(index, e)} >
+                                    {/* <InputLabel id="demo-simple-select-label">Department</InputLabel> */}
+                                    <TextField  name="Department" defaultValue={userdetails.Department}></TextField>
+                                    {/* <Select type="text" name="Department" required value={element.Department || ""} onChange={e => this.handleChange(index, e)} >
                                         {this.state.Department.map((data: any) => { return <MenuItem value={data}>{data}</MenuItem> })}
-                                    </Select></FormControl>
+                                    </Select> */}
+                                </FormControl>
                                 <FormControl style={{ "width": "20%" }}>
                                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                     <Select type="text" required name="Category" value={element.Category || ""} onChange={e => this.handleChange(index, e)} >
