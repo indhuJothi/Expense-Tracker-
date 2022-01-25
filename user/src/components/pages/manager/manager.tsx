@@ -71,7 +71,19 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
         let approved: { Username: any; Category: any; Date: any, Department: any; Amount: any; Result: string }[] = []
         let approveRequest: { Username: any; Category: any; FileUpload: any; Department: any; Amount: any; Date: any; Result: string }
         let approvedDetails = JSON.parse(localStorage.getItem("approved") || "[]")
+        baseURL.post("/getapprove",{approvaldata:data},{
+            
+                headers: {
+                    "Content-Type": "application/json",
+                    "access-token": localStorage.getItem("authtoken") || ""
+                }   
+            
+        }).then((res:any)=>{
         
+
+            let data= res.data
+           console.log(data)
+         })
         reimbursedata.map((res: any) => {
             if ((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category  )) {
 

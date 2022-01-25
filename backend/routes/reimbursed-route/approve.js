@@ -1,30 +1,45 @@
 
 const reimburse = require("../../model/reimbursed-model")
 const users = require("../../model/login-model")
-const reimbursed = async (req, res) => {
-  console.log("I am in")
+const getapprove  = async (req, res) => {
     let { mydata } = req.body
-  let findManager=await users.find({Role:"Manager",Department:mydata.Department})
-  let data={     Username: mydata.Username,
+  let findUser=await users.find({Username:mydata.Username})
+
+  let data={    
+    Username: mydata.Username,
     Date: mydata.Date,
     Department: mydata.Department,
     FileUpload: mydata.FileUpload,
     Amount:mydata.Amount,
-    Result: mydata.Result}
-    console.log(findManager)
-    console.log("I'm in")
-  if(findManager){
+    Category:mydata.Category,
+    Result: "Approved"
+  }
+  if(findUser){
       var addreimburse={$addToSet:{Request:data}}
-      console.log(findManager)
-      console.log(mydata.Department)
-      users.updateOne({Role:"Manager",Department:mydata.Department},addreimburse,(err,res)=>{
+      // console.log(findUser)
+      let create = users.find({Request:"Pending"||"Approve"})
+     if(create){
+      users.updateOne({Username:mydata.Username},addreimburse,(err,res)=>{
         if(err){
             // res.send("err")
+            console.log(err)
         }
         else{
             // res.send("success")
+            console.log(res.Username)
         }
       })
+    }
+    else{
+      users.updateMany({Username:mydata.Username},{Request:addreimburse},(err,res)=>{
+        if(err){
+          console.log(err)
+        }
+        else{
+          console.log(res)
+        }
+      })
+    }
   }
     await reimburse.create({
 
@@ -40,4 +55,4 @@ const reimbursed = async (req, res) => {
       });
 }
 
-module.exports = { reimbursed }
+module.exports = { getapprove }

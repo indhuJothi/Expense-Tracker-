@@ -114,10 +114,11 @@ class HomePageContainer extends React.Component<{}, stateprop> {
         }).then(response => {
     
             console.log(response)
+            window.location.reload()
         })
         localStorage.setItem("reimbursedetails", JSON.stringify(reimburseddetails))
      
-        // window.location.reload()
+     
     }
 
     result(data: any) {

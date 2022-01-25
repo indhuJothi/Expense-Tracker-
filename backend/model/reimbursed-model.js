@@ -6,6 +6,7 @@ Date:String,
 Department:String,
 FileUpload:String,
 Amount:String,
+Category:String,
 Result:String
     
 })
