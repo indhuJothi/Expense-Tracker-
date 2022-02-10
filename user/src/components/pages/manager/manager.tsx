@@ -64,7 +64,7 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
         let datas=data.reimbursedetails
        localStorage.setItem("reimbursedetails",JSON.stringify(datas))
      })
- }
+ }             
     approve(data: any) {
 
         let reimbursedata = JSON.parse(localStorage.getItem("reimbursedetails") || "[]")
@@ -130,18 +130,10 @@ export default class ManagerPage extends React.Component<{}, stateprop>{
 
 
         })
-
-
-
-
-
         let filtered = reimbursedata.filter((res: any) => {
             return !((data.Username === res.Username && data.Date === res.Date && data.Category === res.Category))
         })
         localStorage.setItem("reimbursedetails", JSON.stringify(filtered))
-
-
-
         localStorage.setItem("approved", JSON.stringify(approvedDetails))
         window.location.reload()
 

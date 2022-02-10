@@ -431,14 +431,14 @@ class BasicTable extends React.Component<rowprops & columnprops, stateprop> {
 
     }
     localStorage.setItem("currentcolumns", JSON.stringify(columns))
-
+    console.log(rows)
     const rowskeys = Object.keys(Object.assign({}, ...columns))
-
+      console.log(rowskeys)
     return (
       <>
 
         {
-          rowskeys.includes("Result")?
+         rowskeys.length===0 || rowskeys.includes("Result")?
   <Box style={{ marginLeft: 50, marginTop: 90 }}
   sx={{
     height: 500,
