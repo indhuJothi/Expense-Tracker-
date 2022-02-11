@@ -5,7 +5,7 @@ let {login} = require('./login-route/login')
 let {getDepartments} = require("./deprtment-route/department")
 let {getCategories} = require('./category-route/category')
 let {reimbursed} = require("./reimbursed-route/reimbursed")
-let {getreimburse} = require('./getreimburse/getreimburse')
+let {getreimburse} = require('./getreimburse/getreimbursed')
 let {getapprove} = require('./reimbursed-route/approve')
   
 router.post("/login",login);
