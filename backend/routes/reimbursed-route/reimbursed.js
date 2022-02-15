@@ -2,7 +2,7 @@
 const reimburse = require("../../model/reimbursed-model")
 const users = require("../../model/login-model")
 const reimbursed = async (req, res) => {
-  console.log("I am in")
+  
     let { mydata } = req.body
   let findManager=await users.find({Role:"Manager",Department:mydata.Department})
   let data={     Username: mydata.Username,
@@ -12,7 +12,7 @@ const reimbursed = async (req, res) => {
     Amount:mydata.Amount,
     Result: mydata.Result}
     console.log(findManager)
-    console.log("I'm in")
+   
   if(findManager){
       var addreimburse={$addToSet:{Request:data}}
       console.log(findManager)

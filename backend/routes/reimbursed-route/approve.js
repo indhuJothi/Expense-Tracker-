@@ -2,7 +2,10 @@
 const reimburse = require("../../model/reimbursed-model")
 const users = require("../../model/login-model")
 const getapprove  = async (req, res) => {
+  
     let { mydata } = req.body
+    console.log(mydata.Category)
+    console.loog("HI")
   let findUser=await users.find({Username:mydata.Username})
 
   let data={    
